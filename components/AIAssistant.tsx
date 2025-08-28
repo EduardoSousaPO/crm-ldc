@@ -237,7 +237,7 @@ export function AIAssistant({ leadId, userId, leadName }: AIAssistantProps) {
 
       {/* Dicas */}
       <div className="mt-6 text-xs text-gray-500 bg-gray-900 p-3 rounded-lg">
-        <p className="font-medium mb-1">💡 Dicas para melhores resultados:</p>
+        <p className="font-medium mb-1">Dicas para melhores resultados:</p>
         <ul className="space-y-1">
           <li>• Seja específico sobre o contexto da conversa</li>
           <li>• Mencione interesses demonstrados pelo lead</li>

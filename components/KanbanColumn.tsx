@@ -64,7 +64,7 @@ export function KanbanColumn({
 
         {leads.length === 0 && (
           <div className="text-center py-8 text-gray-500">
-            <div className="text-2xl mb-2">📋</div>
+            <div className="text-2xl mb-2">—</div>
             <p className="text-sm">Nenhum lead nesta fase</p>
           </div>
         )}

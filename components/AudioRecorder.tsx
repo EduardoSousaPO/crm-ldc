@@ -285,7 +285,7 @@ export function AudioRecorder({ leadId, userId, onTranscriptionComplete }: Audio
 
       {/* Dicas de Uso */}
       <div className="text-xs text-gray-500 bg-gray-900 p-3 rounded-lg">
-        <p className="font-medium mb-1">💡 Dicas para melhor resultado:</p>
+        <p className="font-medium mb-1">Dicas para melhor resultado:</p>
         <ul className="space-y-1">
           <li>• Grave em ambiente silencioso</li>
           <li>• Fale claramente sobre objetivos do lead</li>

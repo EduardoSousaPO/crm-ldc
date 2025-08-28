@@ -235,9 +235,9 @@ const OptimizedKanbanBoard = memo(({
           onDragEnd={handleDragEnd}
         >
           <div className="h-full overflow-x-auto">
-            <div className="flex h-full min-w-max space-x-4 p-4">
+            <div className="grid grid-cols-7 gap-3 h-full p-4 min-w-full">
               {visibleColumns.map((column) => (
-                <div key={column.id} className="w-80 flex-shrink-0">
+                <div key={column.id} className="flex flex-col min-w-0">
                   <KanbanColumnOptimized
                     id={column.id}
                     title={column.title}

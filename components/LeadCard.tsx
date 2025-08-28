@@ -54,15 +54,15 @@ export function LeadCard({ lead, isDragging = false, onUpdate, currentUserId }: 
   const getOriginIcon = (origin: string) => {
     switch (origin?.toLowerCase()) {
       case 'website':
-        return '🌐'
+        return 'WEB'
       case 'indicacao':
-        return '👥'
+        return 'IND'
       case 'linkedin':
-        return '💼'
+        return 'LIN'
       case 'whatsapp':
-        return '💬'
+        return 'WPP'
       default:
-        return '📍'
+        return 'OUT'
     }
   }
 
