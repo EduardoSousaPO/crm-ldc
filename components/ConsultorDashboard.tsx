@@ -27,7 +27,7 @@ export function ConsultorDashboard({ currentUser }: ConsultorDashboardProps) {
   return (
     <div className="h-full flex flex-col">
       {/* Header com Estatísticas */}
-      <div className="flex-shrink-0 p-6 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+      <div className="flex-shrink-0 p-6 mx-6 bg-white/80 backdrop-blur-sm border-b border-gray-200 rounded-t-2xl mt-6">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">
             Dashboard do Consultor
@@ -115,7 +115,7 @@ export function ConsultorDashboard({ currentUser }: ConsultorDashboardProps) {
       </div>
 
       {/* Kanban Board */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden mx-6 bg-white/50 backdrop-blur-sm rounded-b-2xl mb-6">
         <OptimizedKanbanBoard 
           leads={leads}
           currentUserId={currentUser.id}
