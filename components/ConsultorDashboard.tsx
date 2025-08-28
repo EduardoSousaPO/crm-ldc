@@ -25,11 +25,22 @@ export function ConsultorDashboard({ currentUser }: ConsultorDashboardProps) {
   }
 
   return (
-    <div className="space-y-6 p-6">
-      {/* Estatísticas */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="h-full flex flex-col">
+      {/* Header com Estatísticas */}
+      <div className="flex-shrink-0 p-6 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-900">
+            Dashboard do Consultor
+          </h1>
+          <p className="text-gray-600 mt-1">
+            Seus leads e performance individual
+          </p>
+        </div>
+        
+        {/* Estatísticas */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Meus Leads */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-gradient-to-br from-white to-gray-50/50 rounded-xl p-4 shadow-md border border-gray-200/50 backdrop-blur-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 text-sm font-medium">Meus Leads</p>
@@ -47,7 +58,7 @@ export function ConsultorDashboard({ currentUser }: ConsultorDashboardProps) {
         </div>
 
         {/* Tarefas Pendentes */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-gradient-to-br from-white to-gray-50/50 rounded-xl p-4 shadow-md border border-gray-200/50 backdrop-blur-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 text-sm font-medium">Tarefas Pendentes</p>
@@ -65,7 +76,7 @@ export function ConsultorDashboard({ currentUser }: ConsultorDashboardProps) {
         </div>
 
         {/* Reuniões desta Semana */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-gradient-to-br from-white to-gray-50/50 rounded-xl p-4 shadow-md border border-gray-200/50 backdrop-blur-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 text-sm font-medium">Reuniões</p>
@@ -83,7 +94,7 @@ export function ConsultorDashboard({ currentUser }: ConsultorDashboardProps) {
         </div>
 
         {/* Taxa de Conversão */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-gradient-to-br from-white to-gray-50/50 rounded-xl p-4 shadow-md border border-gray-200/50 backdrop-blur-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-600 text-sm font-medium">Taxa de Conversão</p>
@@ -101,23 +112,15 @@ export function ConsultorDashboard({ currentUser }: ConsultorDashboardProps) {
         </div>
       </div>
 
+      </div>
+
       {/* Kanban Board */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-        <div className="p-6 border-b border-gray-100">
-          <h2 className="text-xl font-semibold text-gray-900">
-            Pipeline de Vendas
-          </h2>
-          <p className="text-gray-600 text-sm mt-1">
-            Gerencie seus leads e oportunidades
-          </p>
-        </div>
-        <div className="p-6">
-          <OptimizedKanbanBoard 
-            leads={leads}
-            currentUserId={currentUser.id}
-            isAdmin={false}
-          />
-        </div>
+      <div className="flex-1 overflow-hidden">
+        <OptimizedKanbanBoard 
+          leads={leads}
+          currentUserId={currentUser.id}
+          isAdmin={false}
+        />
       </div>
     </div>
   )
