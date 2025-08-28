@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Importar fonte Inter do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    /* LDC Capital - Design System Limpo */
+    --background: 0 0% 100%; /* Branco puro */
+    --foreground: 0 0% 0%; /* Preto */
+    --card: 0 0% 100%; /* Branco para cards */
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 217 33% 17%; /* Azul petróleo #334155 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 98%; /* Cinza muito claro */
+    --secondary-foreground: 0 0% 0%;
+    --muted: 210 40% 97%; /* #f8fafc */
+    --muted-foreground: 217 33% 17%;
+    --accent: 217 33% 17%; /* Azul petróleo */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214.3 31.8% 91.4%; /* #e2e8f0 */
+    --input: 214.3 31.8% 91.4%;
+    --ring: 217 33% 17%; /* Azul petróleo */
+    --radius: 0.75rem; /* Bordas mais suaves */
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: theme('colors.gray.200');
+  }
+  
+  body {
+    background-color: #ffffff; /* Fundo branco puro */
+    color: #000000; /* Texto preto */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  
+  /* Modo escuro desabilitado - apenas modo claro */
+  .dark body {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  /* Scrollbar personalizada inspirada em x.ai */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-500;
+  }
+
+  /* Animações suaves */
+  * {
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+}
+
+@layer components {
+  /* LDC Capital - Componentes Limpos */
+  .btn-primary {
+    @apply bg-petroleum-700 hover:bg-petroleum-800 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-petroleum-700 focus:ring-offset-2;
+    min-height: 44px; /* Touch-friendly */
+  }
+
+  .btn-secondary {
+    @apply bg-white hover:bg-gray-50 text-petroleum-700 px-6 py-3 rounded-xl font-medium transition-all duration-200 border border-gray-200 hover:border-petroleum-300 shadow-sm hover:shadow-md;
+    min-height: 44px;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-gray-50 text-petroleum-700 px-4 py-2 rounded-lg font-medium transition-all duration-200;
+    min-height: 44px;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6 transition-all duration-200 hover:shadow-md hover:border-petroleum-200;
+  }
+
+  .card-minimal {
+    @apply bg-white rounded-lg shadow-sm border border-gray-100 p-4 transition-all duration-200 hover:shadow-md;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all duration-200;
+  }
+
+  .kanban-column {
+    @apply bg-gray-50 dark:bg-gray-900 rounded-xl p-4 min-h-[600px] w-80 flex-shrink-0;
+  }
+
+  .kanban-card {
+    @apply bg-white dark:bg-gray-800 rounded-lg p-4 mb-3 shadow-sm border border-gray-200 dark:border-gray-700 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-[1.02];
+  }
+
+  .kanban-card.dragging {
+    @apply rotate-3 shadow-lg scale-105;
+  }
+
+  /* Estados de loading */
+  .loading-spinner {
+    @apply animate-spin rounded-full border-2 border-gray-300 border-t-accent-600;
+  }
+
+  /* Gradientes */
+  .gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Efeitos de glassmorphism */
+  .glass {
+    @apply backdrop-blur-sm bg-white/10 dark:bg-gray-900/10 border border-white/20 dark:border-gray-700/20;
+  }
+
+  /* Animações de entrada */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  /* Estados de hover para cards */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  /* Indicadores de status */
+  .status-dot {
+    @apply w-2 h-2 rounded-full;
+  }
+
+  .status-dot.active {
+    @apply bg-success-500 shadow-sm shadow-success-500/50;
+  }
+
+  .status-dot.pending {
+    @apply bg-warning-500 shadow-sm shadow-warning-500/50;
+  }
+
+  .status-dot.inactive {
+    @apply bg-gray-400 dark:bg-gray-600;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
