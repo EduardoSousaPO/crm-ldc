@@ -61,14 +61,14 @@ const KanbanColumnOptimized = memo(({
   }, [leads])
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-xl border border-gray-200 shadow-sm">
+    <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-300/50 shadow-lg backdrop-blur-sm">
       {/* Header da Coluna */}
-      <div className="flex-shrink-0 p-3 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white rounded-t-xl">
+      <div className="flex-shrink-0 p-4 border-b border-gray-200 bg-gradient-to-r from-slate-50 via-gray-50 to-slate-50 rounded-t-2xl">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center space-x-2 min-w-0">
-            <div className={`w-3 h-3 rounded-full ${color.replace('bg-', 'bg-')} flex-shrink-0`}></div>
-            <h3 className="font-semibold text-gray-900 truncate text-sm">{title}</h3>
-            <span className="px-2 py-1 text-xs font-medium bg-white text-gray-700 rounded-full border border-gray-200 flex-shrink-0">
+            <div className={`w-4 h-4 rounded-full ${color.replace('bg-', 'bg-')} flex-shrink-0 shadow-sm`}></div>
+            <h3 className="font-bold text-gray-800 truncate text-sm">{title}</h3>
+            <span className="px-2.5 py-1 text-xs font-bold bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 rounded-full shadow-sm flex-shrink-0">
               {stats.total}
             </span>
           </div>
@@ -83,18 +83,18 @@ const KanbanColumnOptimized = memo(({
           </div>
         </div>
         
-        <p className="text-xs text-gray-500 mb-2 truncate">{description}</p>
+        <p className="text-xs text-gray-600 mb-3 truncate font-medium">{description}</p>
         
         {/* Estatísticas Rápidas */}
-        <div className="flex items-center justify-between text-xs text-gray-600">
+        <div className="flex items-center justify-between text-xs text-gray-700">
           <div className="flex items-center space-x-2 min-w-0">
             {stats.totalValue > 0 && (
-              <span className="bg-blue-50 text-blue-700 px-2 py-1 rounded-full font-medium">
+              <span className="bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-800 px-2.5 py-1 rounded-full font-bold border border-blue-200/50 shadow-sm">
                 R$ {(stats.totalValue / 1000).toFixed(0)}k
               </span>
             )}
             {stats.hotLeads > 0 && (
-              <span className="bg-red-50 text-red-700 px-2 py-1 rounded-full font-medium">
+              <span className="bg-gradient-to-r from-red-50 to-rose-50 text-red-800 px-2.5 py-1 rounded-full font-bold border border-red-200/50 shadow-sm">
                 {stats.hotLeads} quentes
               </span>
             )}
@@ -103,7 +103,7 @@ const KanbanColumnOptimized = memo(({
           {onAddLead && (
             <button
               onClick={onAddLead}
-              className="flex items-center space-x-1 bg-blue-50 text-blue-700 px-2 py-1 rounded-full hover:bg-blue-100 transition-colors text-xs font-medium"
+              className="flex items-center space-x-1 bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-800 px-2.5 py-1 rounded-full hover:from-emerald-100 hover:to-green-100 transition-all text-xs font-bold border border-emerald-200/50 shadow-sm hover:shadow-md"
             >
               <Plus className="w-3 h-3" />
               <span className="hidden sm:inline">Add</span>
@@ -116,11 +116,11 @@ const KanbanColumnOptimized = memo(({
       <div
         ref={setNodeRef}
         className={`
-          flex-1 p-2 space-y-2 overflow-y-auto
-          ${isOver ? 'bg-blue-50 border-2 border-dashed border-blue-300' : 'bg-gray-25'}
-          transition-all duration-200 rounded-b-xl
+          flex-1 p-3 space-y-3 overflow-y-auto
+          ${isOver ? 'bg-gradient-to-b from-blue-50 to-indigo-50 border-2 border-dashed border-blue-400/60' : 'bg-gradient-to-b from-gray-50/50 to-slate-50/50'}
+          transition-all duration-300 rounded-b-2xl
         `}
-        style={{ minHeight: '400px' }}
+        style={{ minHeight: '500px' }}
       >
         <SortableContext items={sortedLeads.map(lead => lead.id)} strategy={verticalListSortingStrategy}>
           {sortedLeads.length > 0 ? (

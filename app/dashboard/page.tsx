@@ -97,9 +97,9 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="h-screen flex flex-col bg-gradient-to-br from-slate-50 to-gray-100 overflow-hidden">
       <DashboardHeader user={user} />
-      <main>
+      <main className="flex-1 overflow-hidden">
         {userProfile.role === 'admin' ? (
           <AdminDashboard currentUser={userProfile} />
         ) : (

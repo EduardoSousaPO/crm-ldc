@@ -28,22 +28,23 @@ export function AdminDashboard({ currentUser }: AdminDashboardProps) {
   }
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-8">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-semibold text-gray-900">
-            Dashboard Administrativo
-          </h1>
-          <p className="text-gray-600 mt-1">
-            Visão geral e gestão da equipe
-          </p>
+    <div className="h-full flex flex-col">
+      {/* Header com KPIs */}
+      <div className="flex-shrink-0 p-6 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">
+              Dashboard Administrativo
+            </h1>
+            <p className="text-gray-600 mt-1">
+              Visão geral e gestão da equipe
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* KPIs Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        {/* KPIs Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-gradient-to-br from-white to-gray-50/50 rounded-xl p-4 shadow-md border border-gray-200/50 backdrop-blur-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Total de Leads</p>
@@ -57,7 +58,7 @@ export function AdminDashboard({ currentUser }: AdminDashboardProps) {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div className="bg-gradient-to-br from-white to-gray-50/50 rounded-xl p-4 shadow-md border border-gray-200/50 backdrop-blur-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Consultores Ativos</p>
@@ -71,7 +72,7 @@ export function AdminDashboard({ currentUser }: AdminDashboardProps) {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div className="bg-gradient-to-br from-white to-gray-50/50 rounded-xl p-4 shadow-md border border-gray-200/50 backdrop-blur-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Taxa de Conversão</p>
@@ -85,7 +86,7 @@ export function AdminDashboard({ currentUser }: AdminDashboardProps) {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div className="bg-gradient-to-br from-white to-gray-50/50 rounded-xl p-4 shadow-md border border-gray-200/50 backdrop-blur-sm">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-600">Crescimento Mensal</p>

@@ -79,13 +79,13 @@ const KanbanCardCompact = memo(({ lead, currentUserId, isAdmin = false }: Kanban
         {...attributes}
         {...listeners}
         className={`
-          group bg-white rounded-lg border shadow-sm transition-all duration-200 cursor-pointer
-          ${isDragging ? 'shadow-xl rotate-1 scale-105 z-50 border-blue-300' : 'hover:shadow-md hover:border-gray-300 hover:scale-[1.01]'}
-          border-gray-200
+          group bg-white/95 backdrop-blur-sm rounded-xl border shadow-md transition-all duration-300 cursor-pointer
+          ${isDragging ? 'shadow-2xl rotate-1 scale-105 z-50 border-blue-400 bg-white' : 'hover:shadow-lg hover:border-gray-400/60 hover:scale-[1.02] hover:bg-white'}
+          border-gray-300/40
         `}
       >
         {/* Header Compacto */}
-        <div className="p-2.5">
+        <div className="p-3">
           <div className="flex items-start justify-between mb-2">
             <div className="flex-1 min-w-0">
               <h3 className="text-sm font-medium text-gray-900 truncate">

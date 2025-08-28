@@ -165,9 +165,9 @@ const OptimizedKanbanBoard = memo(({
   const activeLead = activeId ? leads.find(lead => lead.id === activeId) : null
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Controles do Kanban */}
-      <div className="flex-shrink-0 p-4 bg-white border-b border-gray-200">
+      <div className="flex-shrink-0 p-4 bg-white/90 backdrop-blur-sm border-b border-gray-200 shadow-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <h2 className="text-lg font-semibold text-gray-900">Pipeline de Vendas</h2>
@@ -227,7 +227,7 @@ const OptimizedKanbanBoard = memo(({
       </div>
 
       {/* Kanban Board */}
-      <div className="flex-1 overflow-hidden">
+      <div className="flex-1 overflow-hidden bg-gradient-to-b from-gray-100 to-gray-200">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCorners}
@@ -235,7 +235,7 @@ const OptimizedKanbanBoard = memo(({
           onDragEnd={handleDragEnd}
         >
           <div className="h-full overflow-x-auto">
-            <div className="grid grid-cols-7 gap-3 h-full p-4 min-w-full">
+            <div className="grid grid-cols-7 gap-4 h-full p-6 min-w-full">
               {visibleColumns.map((column) => (
                 <div key={column.id} className="flex flex-col min-w-0">
                   <KanbanColumnOptimized
