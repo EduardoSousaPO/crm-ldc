@@ -16,90 +16,13 @@ export function LDCLogo({ size = 'md', variant = 'full', className = '' }: LDCLo
 
   const currentSize = sizes[size]
 
-  // Ícone SVG inspirado no logo LDC Capital - versão mais fiel
+  // Ícone simples e elegante que combina com o design Notion
   const IconSVG = () => (
-    <svg
-      viewBox="0 0 120 120"
-      className={`${currentSize.icon} ${className}`}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Background circular sutil */}
-      <circle
-        cx="60"
-        cy="60"
-        r="55"
-        fill="#F8FAFC"
-        stroke="#E2E8F0"
-        strokeWidth="1"
-      />
-      
-      {/* Base verde (representando crescimento sustentável) */}
-      <ellipse
-        cx="60"
-        cy="85"
-        rx="40"
-        ry="15"
-        fill="#84CC16"
-        opacity="0.6"
-      />
-      
-      {/* Vela/Folha principal - formato mais elegante */}
-      <path
-        d="M40 85 Q40 50 60 25 Q80 50 80 85 Q80 95 60 95 Q40 95 40 85 Z"
-        fill="#F1F5F9"
-        stroke="#CBD5E1"
-        strokeWidth="1.5"
-      />
-      
-      {/* Nervura central da folha/vela */}
-      <line
-        x1="60"
-        y1="30"
-        x2="60"
-        y2="90"
-        stroke="#94A3B8"
-        strokeWidth="1"
-      />
-      
-      {/* Nervuras laterais */}
-      <path
-        d="M50 75 Q55 55 60 40"
-        stroke="#CBD5E1"
-        strokeWidth="0.8"
-        fill="none"
-      />
-      <path
-        d="M70 75 Q65 55 60 40"
-        stroke="#CBD5E1"
-        strokeWidth="0.8"
-        fill="none"
-      />
-      
-      {/* Elemento adicional - folha menor */}
-      <path
-        d="M30 75 Q35 65 40 75 Q35 85 30 75 Z"
-        fill="#A3E635"
-        opacity="0.8"
-      />
-      
-      {/* Detalhe adicional - folha do outro lado */}
-      <path
-        d="M90 70 Q85 60 80 70 Q85 80 90 70 Z"
-        fill="#65A30D"
-        opacity="0.6"
-      />
-      
-      {/* Sombra muito sutil */}
-      <ellipse
-        cx="60"
-        cy="100"
-        rx="30"
-        ry="8"
-        fill="#000000"
-        opacity="0.05"
-      />
-    </svg>
+    <div className={`inline-flex items-center justify-center bg-gray-100 rounded-lg ${currentSize.container}`}>
+      <div className="w-6 h-6 bg-gray-800 rounded-sm flex items-center justify-center">
+        <div className="w-2 h-2 bg-white rounded-full"></div>
+      </div>
+    </div>
   )
 
   // Versão apenas ícone
@@ -132,119 +55,25 @@ export function LDCLogo({ size = 'md', variant = 'full', className = '' }: LDCLo
 // Versão simplificada para uso em espaços pequenos
 export function LDCIcon({ className = '', size = 24 }: { className?: string; size?: number }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 120 120"
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+    <div 
+      className={`inline-flex items-center justify-center bg-gray-100 rounded-lg ${className}`} 
+      style={{ width: size, height: size }}
     >
-      {/* Background circular sutil */}
-      <circle
-        cx="60"
-        cy="60"
-        r="55"
-        fill="#F8FAFC"
-        stroke="#E2E8F0"
-        strokeWidth="1"
-      />
-      
-      {/* Base verde */}
-      <ellipse
-        cx="60"
-        cy="85"
-        rx="40"
-        ry="15"
-        fill="#84CC16"
-        opacity="0.6"
-      />
-      
-      {/* Vela/Folha principal */}
-      <path
-        d="M40 85 Q40 50 60 25 Q80 50 80 85 Q80 95 60 95 Q40 95 40 85 Z"
-        fill="#F1F5F9"
-        stroke="#CBD5E1"
-        strokeWidth="1.5"
-      />
-      
-      {/* Nervura central */}
-      <line
-        x1="60"
-        y1="30"
-        x2="60"
-        y2="90"
-        stroke="#94A3B8"
-        strokeWidth="1"
-      />
-      
-      {/* Nervuras laterais */}
-      <path
-        d="M50 75 Q55 55 60 40"
-        stroke="#CBD5E1"
-        strokeWidth="0.8"
-        fill="none"
-      />
-      <path
-        d="M70 75 Q65 55 60 40"
-        stroke="#CBD5E1"
-        strokeWidth="0.8"
-        fill="none"
-      />
-      
-      {/* Elementos adicionais */}
-      <path
-        d="M30 75 Q35 65 40 75 Q35 85 30 75 Z"
-        fill="#A3E635"
-        opacity="0.8"
-      />
-      <path
-        d="M90 70 Q85 60 80 70 Q85 80 90 70 Z"
-        fill="#65A30D"
-        opacity="0.6"
-      />
-    </svg>
-  )
-}
-
-// Versão ainda mais minimalista para favicon ou ícones muito pequenos
-export function LDCMini({ className = '', size = 16 }: { className?: string; size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 100 100"
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Base verde simples */}
-      <ellipse
-        cx="50"
-        cy="75"
-        rx="35"
-        ry="12"
-        fill="#84CC16"
-        opacity="0.7"
-      />
-      
-      {/* Folha/vela simplificada */}
-      <path
-        d="M35 75 Q35 45 50 25 Q65 45 65 75 Q65 85 50 85 Q35 85 35 75 Z"
-        fill="#F1F5F9"
-        stroke="#94A3B8"
-        strokeWidth="1"
-      />
-      
-      {/* Nervura central */}
-      <line
-        x1="50"
-        y1="30"
-        x2="50"
-        y2="80"
-        stroke="#94A3B8"
-        strokeWidth="0.8"
-      />
-    </svg>
+      <div 
+        className="bg-gray-800 rounded-sm flex items-center justify-center" 
+        style={{ 
+          width: size * 0.6, 
+          height: size * 0.6 
+        }}
+      >
+        <div 
+          className="bg-white rounded-full" 
+          style={{ 
+            width: size * 0.15, 
+            height: size * 0.15 
+          }}
+        ></div>
+      </div>
+    </div>
   )
 }
