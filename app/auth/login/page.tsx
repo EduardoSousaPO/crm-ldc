@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { createSupabaseClient } from '@/lib/supabase'
 import { toast } from 'react-hot-toast'
 import Link from 'next/link'
-import { Eye, EyeOff, Mail, Lock, ArrowRight, Sparkles } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, ArrowRight } from 'lucide-react'
 import type { Database } from '@/types/supabase'
 
 export default function LoginPage() {
@@ -57,39 +57,37 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-4">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
-      
-      <div className="relative w-full max-w-md">
-        {/* Logo/Brand */}
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="w-full max-w-sm">
+        {/* Logo/Brand - Estilo Notion */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-accent-600 to-accent-700 rounded-2xl mb-4 shadow-lg shadow-accent-500/25">
-            <Sparkles className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-lg mb-4">
+            <div className="w-6 h-6 bg-gray-800 rounded-sm"></div>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">CRM - LDC Capital</h1>
-          <p className="text-gray-400 text-sm">
-            Plataforma inteligente para consultores
+          <h1 className="notion-title text-2xl font-semibold text-gray-900 mb-1">
+            CRM - LDC Capital
+          </h1>
+          <p className="notion-body text-gray-500 text-sm">
+            Faça login para continuar
           </p>
         </div>
 
-        {/* Login Form */}
-        <div className="bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/10 shadow-2xl">
-          <form onSubmit={handleLogin} className="space-y-6">
+        {/* Login Form - Estilo Notion Minimalista */}
+        <div className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-4">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
+              <label htmlFor="email" className="notion-caption text-gray-600 mb-1 block text-sm">
                 E-mail
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all duration-200"
-                  placeholder="seu@email.com"
+                  className="input-field w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all duration-150"
+                  placeholder="Digite seu e-mail"
                   required
                 />
               </div>
@@ -97,29 +95,28 @@ export default function LoginPage() {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-2">
+              <label htmlFor="password" className="notion-caption text-gray-600 mb-1 block text-sm">
                 Senha
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-12 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all duration-200"
-                  placeholder="••••••••"
+                  className="input-field w-full px-3 py-2 pr-10 text-sm border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all duration-150"
+                  placeholder="Digite sua senha"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
                   {showPassword ? (
-                    <EyeOff className="w-5 h-5" />
+                    <EyeOff className="w-4 h-4" />
                   ) : (
-                    <Eye className="w-5 h-5" />
+                    <Eye className="w-4 h-4" />
                   )}
                 </button>
               </div>
@@ -129,32 +126,32 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-accent-600 to-accent-700 hover:from-accent-700 hover:to-accent-800 text-white py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-accent-500/25"
+              className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
-                <div className="loading-spinner w-5 h-5"></div>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               ) : (
                 <>
                   <span>Entrar</span>
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4" />
                 </>
               )}
             </button>
           </form>
 
-          {/* Links */}
-          <div className="mt-6 text-center space-y-2">
+          {/* Links - Estilo Notion */}
+          <div className="space-y-3 pt-4 border-t border-gray-100">
             <Link
               href="/auth/forgot-password"
-              className="text-sm text-gray-400 hover:text-white transition-colors"
+              className="notion-body text-gray-500 hover:text-gray-700 transition-colors text-sm block text-center"
             >
               Esqueceu sua senha?
             </Link>
-            <div className="text-gray-500 text-sm">
+            <div className="notion-body text-gray-500 text-sm text-center">
               Não tem uma conta?{' '}
               <Link
                 href="/auth/register"
-                className="text-accent-400 hover:text-accent-300 transition-colors font-medium"
+                className="text-blue-600 hover:text-blue-700 transition-colors"
               >
                 Cadastre-se
               </Link>
@@ -163,8 +160,10 @@ export default function LoginPage() {
         </div>
 
         {/* Footer */}
-        <div className="mt-8 text-center text-xs text-gray-500">
-          <p>© 2024 LDC Capital. Todos os direitos reservados.</p>
+        <div className="mt-12 text-center">
+          <p className="notion-caption text-gray-400 text-xs">
+            © 2024 LDC Capital. Todos os direitos reservados.
+          </p>
         </div>
       </div>
     </div>

@@ -9,7 +9,6 @@ import {
   LogOut, 
   Bell,
   Search,
-  Sparkles,
   Menu
 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
@@ -56,71 +55,69 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
   }
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+    <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-petroleum-700 rounded-lg flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
+        <div className="flex items-center justify-between h-14">
+          {/* Logo - Estilo Notion Minimalista */}
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-gray-800 rounded-sm flex items-center justify-center">
+              <div className="w-3 h-3 bg-white rounded-xs"></div>
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-gray-900">CRM - LDC Capital</h1>
-              <p className="text-xs text-petroleum-600">Powered by AI</p>
+              <h1 className="notion-subtitle font-medium text-gray-900">CRM - LDC Capital</h1>
             </div>
           </div>
 
-          {/* Search Bar - Desktop */}
+          {/* Search Bar - Desktop Notion Style */}
           <div className="hidden md:flex flex-1 max-w-md mx-8">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <input
                 type="text"
                 placeholder="Buscar leads, tarefas..."
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-petroleum-500 focus:border-petroleum-500 text-sm transition-all"
+                className="w-full pl-10 pr-4 py-1.5 bg-gray-50 border border-gray-200 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all"
               />
             </div>
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center space-x-3">
+          {/* Actions - Estilo Notion */}
+          <div className="flex items-center gap-1">
             {/* Search - Mobile */}
-            <button className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <Search className="w-5 h-5 text-gray-600" />
+            <button className="md:hidden p-2 hover:bg-gray-100 rounded-md transition-colors">
+              <Search className="w-4 h-4 text-gray-600" />
             </button>
 
             {/* Notifications */}
-            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative">
-              <Bell className="w-5 h-5 text-gray-600" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            <button className="p-2 hover:bg-gray-100 rounded-md transition-colors relative">
+              <Bell className="w-4 h-4 text-gray-600" />
+              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-red-500 rounded-full"></span>
             </button>
 
-            {/* User Menu */}
+            {/* User Menu - Estilo Notion */}
             <div className="relative">
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center space-x-3 p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="flex items-center gap-2 p-1.5 hover:bg-gray-100 rounded-md transition-colors"
               >
-                <div className="w-8 h-8 bg-petroleum-700 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                <div className="w-6 h-6 bg-gray-600 rounded-full flex items-center justify-center text-white text-xs font-medium">
                   {user ? getUserInitials(user.user_metadata?.name, user.email!) : 'U'}
                 </div>
                 <div className="hidden md:block text-left">
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="notion-caption text-gray-700 text-sm">
                     {user?.user_metadata?.name || user?.email?.split('@')[0] || 'Usuário'}
                   </p>
-                  <p className="text-xs text-petroleum-600">Consultor</p>
                 </div>
               </button>
 
-              {/* User Dropdown */}
+              {/* User Dropdown - Estilo Notion */}
               {isUserMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
-                  <div className="py-2">
-                    <div className="px-4 py-3 border-b border-gray-100">
-                      <p className="text-sm font-medium text-gray-900">
+                <div className="absolute right-0 mt-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                  <div className="py-1">
+                    <div className="px-3 py-2 border-b border-gray-100">
+                      <p className="notion-subtitle text-gray-900 text-sm">
                         {user?.user_metadata?.name || 'Usuário'}
                       </p>
-                      <p className="text-xs text-gray-500 truncate">
+                      <p className="notion-caption text-gray-500 text-xs truncate">
                         {user?.email}
                       </p>
                     </div>
@@ -130,7 +127,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                         setIsUserMenuOpen(false)
                         // TODO: Implementar página de perfil
                       }}
-                      className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center space-x-2"
+                      className="w-full px-3 py-2 text-left notion-body text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
                     >
                       <UserIcon className="w-4 h-4" />
                       <span>Meu Perfil</span>
@@ -141,7 +138,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                         setIsUserMenuOpen(false)
                         // TODO: Implementar página de configurações
                       }}
-                      className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center space-x-2"
+                      className="w-full px-3 py-2 text-left notion-body text-gray-700 hover:bg-gray-50 transition-colors flex items-center gap-2"
                     >
                       <Settings className="w-4 h-4" />
                       <span>Configurações</span>
@@ -154,7 +151,7 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                         setIsUserMenuOpen(false)
                         handleLogout()
                       }}
-                      className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center space-x-2"
+                      className="w-full px-3 py-2 text-left notion-body text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
                     >
                       <LogOut className="w-4 h-4" />
                       <span>Sair</span>
@@ -165,8 +162,8 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
             </div>
 
             {/* Mobile Menu */}
-            <button className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <Menu className="w-5 h-5 text-gray-600" />
+            <button className="md:hidden p-2 hover:bg-gray-100 rounded-md transition-colors">
+              <Menu className="w-4 h-4 text-gray-600" />
             </button>
           </div>
         </div>
