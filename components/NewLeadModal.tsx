@@ -3,9 +3,6 @@
 import { useState } from 'react'
 import { X } from 'lucide-react'
 import { toast } from 'react-hot-toast'
-import type { Database } from '@/types/supabase'
-
-type Lead = Database['public']['Tables']['leads']['Row']
 
 interface NewLeadModalProps {
   isOpen: boolean
@@ -55,7 +52,7 @@ export function NewLeadModal({ isOpen, onClose, onSubmit }: NewLeadModalProps) {
         phone: formData.phone.trim() || null,
         origin: formData.origin || null,
         notes: formData.notes.trim() || null,
-        status: 'lead_qualificado',
+        status: 'lead_qualification',
         consultant_id: '', // Será preenchido no componente pai
         score: 0,
       })
@@ -90,24 +87,24 @@ export function NewLeadModal({ isOpen, onClose, onSubmit }: NewLeadModalProps) {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-900 rounded-2xl border border-gray-800 w-full max-w-md shadow-2xl">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-800">
-          <h2 className="text-xl font-semibold text-white">Novo Lead</h2>
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
+        {/* Header - Estilo Notion */}
+        <div className="flex items-center justify-between p-6 border-b border-gray-100">
+          <h2 className="notion-title text-xl font-semibold text-gray-900">Novo Lead</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-100 rounded-md transition-colors"
           >
-            <X className="w-5 h-5 text-gray-400" />
+            <X className="w-4 h-4 text-gray-400" />
           </button>
         </div>
 
-        {/* Form */}
+        {/* Form - Estilo Notion */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {/* Nome */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="name" className="notion-caption text-gray-600 mb-1 block text-sm">
               Nome *
             </label>
             <input
@@ -115,7 +112,7 @@ export function NewLeadModal({ isOpen, onClose, onSubmit }: NewLeadModalProps) {
               type="text"
               value={formData.name}
               onChange={(e) => handleInputChange('name', e.target.value)}
-              className="input-field"
+              className="input-field w-full"
               placeholder="Nome completo do lead"
               required
             />
@@ -123,7 +120,7 @@ export function NewLeadModal({ isOpen, onClose, onSubmit }: NewLeadModalProps) {
 
           {/* E-mail */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="email" className="notion-caption text-gray-600 mb-1 block text-sm">
               E-mail
             </label>
             <input
@@ -131,14 +128,14 @@ export function NewLeadModal({ isOpen, onClose, onSubmit }: NewLeadModalProps) {
               type="email"
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
-              className="input-field"
+              className="input-field w-full"
               placeholder="email@exemplo.com"
             />
           </div>
 
           {/* Telefone */}
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="phone" className="notion-caption text-gray-600 mb-1 block text-sm">
               Telefone
             </label>
             <input
@@ -146,24 +143,24 @@ export function NewLeadModal({ isOpen, onClose, onSubmit }: NewLeadModalProps) {
               type="tel"
               value={formData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
-              className="input-field"
+              className="input-field w-full"
               placeholder="(11) 99999-9999"
             />
           </div>
 
           {/* Origem */}
           <div>
-            <label htmlFor="origin" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="origin" className="notion-caption text-gray-600 mb-1 block text-sm">
               Origem
             </label>
             <select
               id="origin"
               value={formData.origin}
               onChange={(e) => handleInputChange('origin', e.target.value)}
-              className="input-field"
+              className="input-field w-full"
             >
               <option value="">Selecione a origem</option>
-              {LEAD_ORIGINS.map(origin => (
+              {LEAD_ORIGINS.map((origin) => (
                 <option key={origin.value} value={origin.value}>
                   {origin.label}
                 </option>
@@ -171,40 +168,39 @@ export function NewLeadModal({ isOpen, onClose, onSubmit }: NewLeadModalProps) {
             </select>
           </div>
 
-          {/* Notas */}
+          {/* Observações */}
           <div>
-            <label htmlFor="notes" className="block text-sm font-medium text-gray-300 mb-2">
-              Notas iniciais
+            <label htmlFor="notes" className="notion-caption text-gray-600 mb-1 block text-sm">
+              Observações
             </label>
             <textarea
               id="notes"
               value={formData.notes}
               onChange={(e) => handleInputChange('notes', e.target.value)}
-              className="input-field resize-none"
-              rows={3}
+              className="input-field w-full h-20 resize-none"
               placeholder="Informações adicionais sobre o lead..."
             />
           </div>
 
-          {/* Footer */}
-          <div className="flex space-x-3 pt-4">
+          {/* Botões */}
+          <div className="flex justify-end gap-3 pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="btn-secondary flex-1"
+              className="btn-secondary"
               disabled={isSubmitting}
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="btn-primary flex-1"
+              className="btn-primary"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                <div className="flex items-center justify-center space-x-2">
-                  <div className="loading-spinner w-4 h-4"></div>
-                  <span>Criando...</span>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Criando...
                 </div>
               ) : (
                 'Criar Lead'

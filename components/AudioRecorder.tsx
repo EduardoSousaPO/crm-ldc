@@ -6,15 +6,10 @@ import { toast } from 'react-hot-toast'
 
 interface AudioRecorderProps {
   leadId: string
-  userId: string
-  onTranscriptionComplete?: (data: {
-    transcription: string
-    analysis: any
-    interactionId: string
-  }) => void
+  onTranscriptionComplete?: (transcription: string, analysis: any) => void
 }
 
-export function AudioRecorder({ leadId, userId, onTranscriptionComplete }: AudioRecorderProps) {
+export function AudioRecorder({ leadId, onTranscriptionComplete }: AudioRecorderProps) {
   const [isRecording, setIsRecording] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null)
@@ -98,40 +93,31 @@ export function AudioRecorder({ leadId, userId, onTranscriptionComplete }: Audio
     }
   }
 
-  const uploadAndTranscribe = async () => {
+  const transcribeAudio = async () => {
     if (!audioBlob) {
-      toast.error('Nenhum áudio para processar')
+      toast.error('Nenhuma gravação encontrada')
       return
     }
 
     setIsTranscribing(true)
-    
+
     try {
       const formData = new FormData()
       formData.append('audio', audioBlob, 'recording.webm')
       formData.append('leadId', leadId)
-      formData.append('userId', userId)
 
       const response = await fetch('/api/transcribe', {
         method: 'POST',
         body: formData,
       })
 
-      if (!response.ok) {
-        throw new Error('Falha na transcrição')
-      }
-
       const result = await response.json()
-      
-      if (result.success) {
-        toast.success('Áudio processado com sucesso!')
+
+      if (response.ok) {
+        toast.success('Áudio transcrito com sucesso!')
         
         if (onTranscriptionComplete) {
-          onTranscriptionComplete({
-            transcription: result.transcription,
-            analysis: result.analysis,
-            interactionId: result.interactionId,
-          })
+          onTranscriptionComplete(result.transcription, result.analysis)
         }
         
         // Limpar estado após sucesso
@@ -168,131 +154,105 @@ export function AudioRecorder({ leadId, userId, onTranscriptionComplete }: Audio
   }
 
   return (
-    <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+    <div className="card-minimal">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-white flex items-center space-x-2">
-          <Mic className="w-5 h-5 text-accent-500" />
+        <h3 className="notion-subtitle text-gray-900 flex items-center gap-2">
+          <Mic className="w-4 h-4 text-gray-600" />
           <span>Gravador de Áudio IA</span>
         </h3>
         
         {recordingTime > 0 && (
-          <div className="text-sm text-gray-400">
+          <div className="notion-caption text-gray-500">
             {formatTime(recordingTime)}
           </div>
         )}
       </div>
 
       {/* Controles de Gravação */}
-      <div className="flex items-center space-x-4 mb-4">
+      <div className="flex items-center gap-3 mb-4">
         {!isRecording ? (
           <button
             onClick={startRecording}
+            className="btn-primary flex items-center gap-2"
             disabled={isTranscribing}
-            className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
           >
             <Mic className="w-4 h-4" />
-            <span>Gravar</span>
+            Gravar
           </button>
         ) : (
           <button
             onClick={stopRecording}
-            className="flex items-center space-x-2 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors animate-pulse"
+            className="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-md font-medium transition-colors flex items-center gap-2"
           >
             <Square className="w-4 h-4" />
-            <span>Parar</span>
+            Parar
           </button>
         )}
 
-        {audioUrl && (
+        {audioBlob && (
           <>
             <button
               onClick={playAudio}
+              className="btn-secondary flex items-center gap-2"
               disabled={isTranscribing}
-              className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
             >
-              {isPlaying ? (
-                <>
-                  <Pause className="w-4 h-4" />
-                  <span>Pausar</span>
-                </>
-              ) : (
-                <>
-                  <Play className="w-4 h-4" />
-                  <span>Reproduzir</span>
-                </>
-              )}
+              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+              {isPlaying ? 'Pausar' : 'Reproduzir'}
             </button>
 
             <button
-              onClick={uploadAndTranscribe}
+              onClick={transcribeAudio}
+              className="btn-primary flex items-center gap-2"
               disabled={isTranscribing}
-              className="flex items-center space-x-2 bg-accent-600 hover:bg-accent-700 text-white px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
             >
               {isTranscribing ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Processando...</span>
-                </>
+                <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
-                <>
-                  <Upload className="w-4 h-4" />
-                  <span>Processar com IA</span>
-                </>
+                <Upload className="w-4 h-4" />
               )}
+              {isTranscribing ? 'Processando...' : 'Transcrever'}
             </button>
 
             <button
               onClick={clearRecording}
+              className="btn-secondary text-red-600 hover:bg-red-50"
               disabled={isTranscribing}
-              className="text-gray-400 hover:text-gray-300 transition-colors disabled:opacity-50"
             >
-              <MicOff className="w-4 h-4" />
+              Limpar
             </button>
           </>
         )}
       </div>
 
-      {/* Visualizador de Áudio */}
+      {/* Status da Gravação */}
       {isRecording && (
-        <div className="mb-4">
-          <div className="flex items-center space-x-1 justify-center">
-            {[...Array(20)].map((_, i) => (
-              <div
-                key={i}
-                className="w-1 bg-red-500 rounded-full animate-pulse"
-                style={{
-                  height: `${Math.random() * 20 + 10}px`,
-                  animationDelay: `${i * 0.1}s`,
-                }}
-              />
-            ))}
+        <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+            <span className="notion-body text-red-700">Gravando... {formatTime(recordingTime)}</span>
           </div>
-          <p className="text-center text-sm text-gray-400 mt-2">
-            Gravando... Fale naturalmente sobre a conversa com o lead.
-          </p>
         </div>
       )}
 
-      {/* Player de Áudio */}
+      {/* Dicas de Uso */}
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+        <h4 className="notion-caption text-blue-900 font-medium mb-1">Dicas para melhor qualidade:</h4>
+        <ul className="notion-caption text-blue-800 space-y-1">
+          <li>• Fale claramente e próximo ao microfone</li>
+          <li>• Evite ruídos de fundo</li>
+          <li>• Mencione informações importantes sobre o lead</li>
+        </ul>
+      </div>
+
+      {/* Audio Element (hidden) */}
       {audioUrl && (
         <audio
           ref={audioRef}
           src={audioUrl}
           onEnded={() => setIsPlaying(false)}
-          className="hidden"
+          style={{ display: 'none' }}
         />
       )}
-
-      {/* Dicas de Uso */}
-      <div className="text-xs text-gray-500 bg-gray-900 p-3 rounded-lg">
-        <p className="font-medium mb-1">Dicas para melhor resultado:</p>
-        <ul className="space-y-1">
-          <li>• Grave em ambiente silencioso</li>
-          <li>• Fale claramente sobre objetivos do lead</li>
-          <li>• Mencione próximos passos discutidos</li>
-          <li>• A IA extrairá tarefas automaticamente</li>
-        </ul>
-      </div>
     </div>
   )
 }

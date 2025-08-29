@@ -222,8 +222,8 @@ export function OptimizedAcquisitionPipeline({
           </div>
         </div>
 
-        {/* Filtros */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {/* Filtros - Estilo Notion */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <input
@@ -231,14 +231,14 @@ export function OptimizedAcquisitionPipeline({
               placeholder="Buscar leads..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input-field w-full pl-10 pr-4"
             />
           </div>
 
           <select
             value={selectedConsultor}
             onChange={(e) => setSelectedConsultor(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="input-field w-full"
           >
             <option value="">Todos os consultores</option>
             {consultors.map((consultor) => (
@@ -251,7 +251,7 @@ export function OptimizedAcquisitionPipeline({
           <select
             value={selectedStage}
             onChange={(e) => setSelectedStage(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="input-field w-full"
           >
             <option value="">Todos os estágios</option>
             {OPTIMIZED_STAGES.map((stage) => (
@@ -261,7 +261,7 @@ export function OptimizedAcquisitionPipeline({
             ))}
           </select>
 
-          <button className="flex items-center justify-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button className="btn-secondary flex items-center justify-center gap-2">
             <Filter className="w-4 h-4" />
             <span>Filtros</span>
           </button>

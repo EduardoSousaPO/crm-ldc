@@ -6,8 +6,6 @@ import { toast } from 'react-hot-toast'
 
 interface AIAssistantProps {
   leadId: string
-  userId: string
-  leadName: string
 }
 
 interface FollowUpContent {
@@ -17,7 +15,7 @@ interface FollowUpContent {
   tipo: 'email' | 'whatsapp'
 }
 
-export function AIAssistant({ leadId, userId, leadName }: AIAssistantProps) {
+export function AIAssistant({ leadId }: AIAssistantProps) {
   const [isGenerating, setIsGenerating] = useState(false)
   const [followUpContent, setFollowUpContent] = useState<FollowUpContent | null>(null)
   const [context, setContext] = useState('')
@@ -39,7 +37,6 @@ export function AIAssistant({ leadId, userId, leadName }: AIAssistantProps) {
         },
         body: JSON.stringify({
           leadId,
-          userId,
           context,
           type: selectedType,
         }),
@@ -81,10 +78,10 @@ export function AIAssistant({ leadId, userId, leadName }: AIAssistantProps) {
   }
 
   return (
-    <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+    <div className="card-minimal">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-white flex items-center space-x-2">
-          <Sparkles className="w-5 h-5 text-accent-500" />
+        <h3 className="notion-subtitle text-gray-900 flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-gray-600" />
           <span>Assistente de Follow-up IA</span>
         </h3>
       </div>
@@ -93,47 +90,49 @@ export function AIAssistant({ leadId, userId, leadName }: AIAssistantProps) {
         <div className="space-y-4">
           {/* Seleção de Tipo */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="notion-caption text-gray-600 mb-2 block">
               Tipo de Follow-up
             </label>
-            <div className="flex space-x-4">
+            <div className="flex gap-2">
               <button
                 onClick={() => setSelectedType('email')}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                  selectedType === 'email'
-                    ? 'bg-accent-600 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
+                className={`
+                  flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${selectedType === 'email'
+                    ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                    : 'bg-gray-50 text-gray-700 border border-gray-200 hover:bg-gray-100'
+                  }
+                `}
               >
                 <Mail className="w-4 h-4" />
-                <span>Email</span>
+                E-mail
               </button>
               <button
                 onClick={() => setSelectedType('whatsapp')}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-                  selectedType === 'whatsapp'
-                    ? 'bg-accent-600 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
+                className={`
+                  flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  ${selectedType === 'whatsapp'
+                    ? 'bg-green-50 text-green-700 border border-green-200'
+                    : 'bg-gray-50 text-gray-700 border border-gray-200 hover:bg-gray-100'
+                  }
+                `}
               >
                 <MessageSquare className="w-4 h-4" />
-                <span>WhatsApp</span>
+                WhatsApp
               </button>
             </div>
           </div>
 
           {/* Contexto */}
           <div>
-            <label htmlFor="context" className="block text-sm font-medium text-gray-300 mb-2">
-              Contexto para o Follow-up
+            <label className="notion-caption text-gray-600 mb-2 block">
+              Contexto da Conversa
             </label>
             <textarea
-              id="context"
               value={context}
               onChange={(e) => setContext(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent resize-none"
-              rows={4}
-              placeholder={`Ex: ${leadName} demonstrou interesse em fundos imobiliários na última conversa. Gostaria de agendar uma reunião para apresentar opções específicas...`}
+              className="input-field w-full h-24 resize-none"
+              placeholder="Descreva o contexto da última conversa, pontos importantes discutidos, próximos passos, etc..."
             />
           </div>
 
@@ -141,108 +140,106 @@ export function AIAssistant({ leadId, userId, leadName }: AIAssistantProps) {
           <button
             onClick={generateFollowUp}
             disabled={isGenerating || !context.trim()}
-            className="w-full flex items-center justify-center space-x-2 bg-accent-600 hover:bg-accent-700 text-white px-6 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-primary w-full flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {isGenerating ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Gerando follow-up...</span>
+                Gerando follow-up...
               </>
             ) : (
               <>
-                <Sparkles className="w-4 h-4" />
-                <span>Gerar Follow-up com IA</span>
+                <Send className="w-4 h-4" />
+                Gerar Follow-up
               </>
             )}
           </button>
         </div>
       ) : (
         <div className="space-y-4">
-          {/* Resultado Email */}
-          {followUpContent.tipo === 'email' && (
-            <div className="space-y-4">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label className="text-sm font-medium text-gray-300">Assunto</label>
+          {/* Conteúdo Gerado */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            {followUpContent.tipo === 'email' ? (
+              <div className="space-y-3">
+                <div>
+                  <label className="notion-caption text-blue-900 font-medium">Assunto:</label>
+                  <div className="bg-white rounded-md p-2 mt-1 border border-blue-200">
+                    <p className="notion-body text-gray-900">{followUpContent.assunto}</p>
+                  </div>
                   <button
                     onClick={() => copyToClipboard(followUpContent.assunto || '')}
-                    className="text-gray-400 hover:text-gray-300 transition-colors"
+                    className="mt-1 text-blue-600 hover:text-blue-700 text-xs flex items-center gap-1"
                   >
-                    <Copy className="w-4 h-4" />
+                    <Copy className="w-3 h-3" />
+                    Copiar assunto
                   </button>
                 </div>
-                <div className="bg-gray-900 rounded-lg p-3 text-gray-300 text-sm">
-                  {followUpContent.assunto}
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <label className="text-sm font-medium text-gray-300">Corpo do Email</label>
+                
+                <div>
+                  <label className="notion-caption text-blue-900 font-medium">Corpo do E-mail:</label>
+                  <div className="bg-white rounded-md p-3 mt-1 border border-blue-200">
+                    <pre className="notion-body text-gray-900 whitespace-pre-wrap font-sans">
+                      {followUpContent.corpo}
+                    </pre>
+                  </div>
                   <button
                     onClick={() => copyToClipboard(followUpContent.corpo || '')}
-                    className="text-gray-400 hover:text-gray-300 transition-colors"
+                    className="mt-1 text-blue-600 hover:text-blue-700 text-xs flex items-center gap-1"
                   >
-                    <Copy className="w-4 h-4" />
+                    <Copy className="w-3 h-3" />
+                    Copiar e-mail
                   </button>
                 </div>
-                <div className="bg-gray-900 rounded-lg p-4 text-gray-300 text-sm max-h-60 overflow-y-auto">
-                  <div dangerouslySetInnerHTML={{ __html: followUpContent.corpo || '' }} />
-                </div>
               </div>
-            </div>
-          )}
-
-          {/* Resultado WhatsApp */}
-          {followUpContent.tipo === 'whatsapp' && (
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium text-gray-300">Mensagem WhatsApp</label>
+            ) : (
+              <div>
+                <label className="notion-caption text-green-900 font-medium">Mensagem WhatsApp:</label>
+                <div className="bg-white rounded-md p-3 mt-1 border border-green-200">
+                  <pre className="notion-body text-gray-900 whitespace-pre-wrap font-sans">
+                    {followUpContent.mensagem}
+                  </pre>
+                </div>
                 <button
                   onClick={() => copyToClipboard(followUpContent.mensagem || '')}
-                  className="text-gray-400 hover:text-gray-300 transition-colors"
+                  className="mt-1 text-green-600 hover:text-green-700 text-xs flex items-center gap-1"
                 >
-                  <Copy className="w-4 h-4" />
+                  <Copy className="w-3 h-3" />
+                  Copiar mensagem
                 </button>
               </div>
-              <div className="bg-gray-900 rounded-lg p-4 text-gray-300 text-sm max-h-60 overflow-y-auto whitespace-pre-wrap">
-                {followUpContent.mensagem}
-              </div>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Ações */}
-          <div className="flex space-x-3 pt-4 border-t border-gray-700">
+          <div className="flex gap-2">
             <button
               onClick={clearGeneration}
-              className="flex-1 bg-gray-700 hover:bg-gray-600 text-gray-300 px-4 py-2 rounded-lg transition-colors"
+              className="btn-secondary flex-1"
             >
               Gerar Novo
             </button>
             <button
-              onClick={() => {
-                const content = followUpContent.tipo === 'email' 
-                  ? `${followUpContent.assunto}\n\n${followUpContent.corpo?.replace(/<[^>]*>/g, '')}`
-                  : followUpContent.mensagem
-                copyToClipboard(content || '')
-              }}
-              className="flex-1 bg-accent-600 hover:bg-accent-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center space-x-2"
+              onClick={() => copyToClipboard(
+                followUpContent.tipo === 'email' 
+                  ? `${followUpContent.assunto}\n\n${followUpContent.corpo}`
+                  : followUpContent.mensagem || ''
+              )}
+              className="btn-primary flex items-center gap-2"
             >
               <Copy className="w-4 h-4" />
-              <span>Copiar Tudo</span>
+              Copiar Tudo
             </button>
           </div>
         </div>
       )}
 
       {/* Dicas */}
-      <div className="mt-6 text-xs text-gray-500 bg-gray-900 p-3 rounded-lg">
-        <p className="font-medium mb-1">Dicas para melhores resultados:</p>
-        <ul className="space-y-1">
+      <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-4">
+        <h4 className="notion-caption text-amber-900 font-medium mb-1">Dicas para melhor resultado:</h4>
+        <ul className="notion-caption text-amber-800 space-y-1">
           <li>• Seja específico sobre o contexto da conversa</li>
-          <li>• Mencione interesses demonstrados pelo lead</li>
-          <li>• Inclua próximos passos desejados</li>
-          <li>• A IA usa o histórico completo do lead</li>
+          <li>• Mencione próximos passos acordados</li>
+          <li>• Inclua informações sobre interesse do lead</li>
         </ul>
       </div>
     </div>

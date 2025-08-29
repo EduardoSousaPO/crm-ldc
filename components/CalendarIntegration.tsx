@@ -98,31 +98,32 @@ export function CalendarIntegration({ userId, leadId, leadName, leadEmail }: Cal
 
   const connectCalendar = async () => {
     try {
-      const response = await fetch('/api/calendar/auth')
-      const result = await response.json()
-
-      if (result.success) {
-        // Adicionar userId ao state para o callback
-        const authUrlWithState = `${result.authUrl}&state=${userId}`
-        window.location.href = authUrlWithState
-      } else {
-        toast.error('Erro ao conectar com Google Calendar')
-      }
+      // Redirecionar para OAuth do Google
+      window.location.href = `/api/calendar/auth?userId=${userId}`
     } catch (error) {
       console.error('Erro ao conectar calendário:', error)
-      toast.error('Erro ao conectar calendário')
+      toast.error('Erro ao conectar com Google Calendar')
     }
   }
 
   const createEvent = async () => {
     if (!newEvent.title || !newEvent.startDateTime || !newEvent.endDateTime) {
-      toast.error('Preencha os campos obrigatórios')
+      toast.error('Preencha todos os campos obrigatórios')
       return
     }
 
     setIsCreatingEvent(true)
 
     try {
+      const eventData = {
+        title: newEvent.title,
+        description: newEvent.description,
+        startDateTime: newEvent.startDateTime,
+        endDateTime: newEvent.endDateTime,
+        attendeeEmail: newEvent.attendeeEmail || leadEmail,
+        leadId: leadId,
+      }
+
       const response = await fetch('/api/calendar/events', {
         method: 'POST',
         headers: {
@@ -130,19 +131,14 @@ export function CalendarIntegration({ userId, leadId, leadName, leadEmail }: Cal
         },
         body: JSON.stringify({
           userId,
-          leadId,
-          summary: newEvent.title,
-          description: newEvent.description,
-          startDateTime: newEvent.startDateTime,
-          endDateTime: newEvent.endDateTime,
-          attendeeEmails: newEvent.attendeeEmail ? [newEvent.attendeeEmail] : [],
+          ...eventData,
         }),
       })
 
       const result = await response.json()
 
       if (result.success) {
-        toast.success('Evento criado com sucesso!')
+        toast.success('Reunião criada com sucesso!')
         setShowCreateForm(false)
         setNewEvent({
           title: '',
@@ -151,13 +147,13 @@ export function CalendarIntegration({ userId, leadId, leadName, leadEmail }: Cal
           endDateTime: '',
           attendeeEmail: '',
         })
-        fetchEvents()
+        fetchEvents() // Recarregar eventos
       } else {
-        toast.error('Erro ao criar evento')
+        throw new Error(result.error)
       }
     } catch (error) {
       console.error('Erro ao criar evento:', error)
-      toast.error('Erro ao criar evento')
+      toast.error('Erro ao criar reunião')
     } finally {
       setIsCreatingEvent(false)
     }
@@ -173,173 +169,137 @@ export function CalendarIntegration({ userId, leadId, leadName, leadEmail }: Cal
     })
   }
 
-  const getDefaultEventTitle = () => {
-    if (leadId) {
-      return 'Reunião - Discovery de Investimentos'
-    }
-    return 'Reunião de Consultoria'
-  }
-
   if (isLoading) {
     return (
-      <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
-        <div className="flex items-center justify-center py-8">
-          <div className="loading-spinner w-6 h-6"></div>
+      <div className="card-minimal">
+        <div className="text-center py-8">
+          <div className="w-8 h-8 border-2 border-blue-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="notion-body text-gray-500">Carregando integração...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+    <div className="card-minimal">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-white flex items-center space-x-2">
-          <Calendar className="w-5 h-5 text-accent-500" />
-          <span>Google Calendar</span>
+        <h3 className="notion-subtitle text-gray-900 flex items-center gap-2">
+          <Calendar className="w-4 h-4 text-gray-600" />
+          <span>Integração com Google Calendar</span>
         </h3>
-
-        {isConnected ? (
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span className="text-sm text-green-400">Conectado</span>
-          </div>
-        ) : (
+        
+        {isConnected && (
           <button
-            onClick={connectCalendar}
-            className="btn-primary flex items-center space-x-2"
+            onClick={() => setShowCreateForm(!showCreateForm)}
+            className="btn-primary flex items-center gap-2"
           >
-            <Settings className="w-4 h-4" />
-            <span>Conectar</span>
+            <Plus className="w-4 h-4" />
+            <span>Nova Reunião</span>
           </button>
         )}
       </div>
 
       {!isConnected ? (
         <div className="text-center py-8">
-          <Calendar className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-          <p className="text-gray-400 mb-4">
-            Conecte seu Google Calendar para agendar reuniões automaticamente
+          <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+          <h4 className="notion-subtitle text-gray-900 mb-2">Conectar Google Calendar</h4>
+          <p className="notion-body text-gray-500 mb-6">
+            Conecte sua conta do Google para agendar reuniões diretamente do CRM
           </p>
-          <ul className="text-sm text-gray-500 space-y-1 mb-6">
-            <li>• Agendamento automático de reuniões</li>
-            <li>• Sincronização bidirecional</li>
-            <li>• Links do Google Meet incluídos</li>
-            <li>• Lembretes automáticos</li>
-          </ul>
           <button
             onClick={connectCalendar}
-            className="btn-primary"
+            className="btn-primary flex items-center gap-2 mx-auto"
           >
-            Conectar Google Calendar
+            <Settings className="w-4 h-4" />
+            Conectar Calendário
           </button>
         </div>
       ) : (
         <div className="space-y-6">
-          {/* Botão Criar Evento */}
-          <div className="flex justify-between items-center">
-            <p className="text-sm text-gray-400">
-              Próximos eventos ({events.length})
-            </p>
-            <button
-              onClick={() => setShowCreateForm(!showCreateForm)}
-              className="btn-secondary flex items-center space-x-2"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Agendar Reunião</span>
-            </button>
-          </div>
-
-          {/* Formulário de Criar Evento */}
+          {/* Formulário de Nova Reunião */}
           {showCreateForm && (
-            <div className="bg-gray-900 rounded-lg p-4 border border-gray-700">
-              <h4 className="font-medium text-white mb-4">Nova Reunião</h4>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h4 className="notion-subtitle text-blue-900 mb-4">Nova Reunião</h4>
               
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="notion-caption text-blue-800 mb-1 block">
                     Título *
                   </label>
                   <input
                     type="text"
                     value={newEvent.title}
                     onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
-                    placeholder={getDefaultEventTitle()}
-                    className="input-field"
+                    className="input-field w-full"
+                    placeholder={`Reunião com ${leadName || 'cliente'}`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="notion-caption text-blue-800 mb-1 block">
                     Descrição
                   </label>
                   <textarea
                     value={newEvent.description}
                     onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })}
-                    placeholder="Pauta da reunião, objetivos, etc..."
-                    className="input-field resize-none"
-                    rows={3}
+                    className="input-field w-full h-20 resize-none"
+                    placeholder="Agenda da reunião, tópicos a discutir..."
                   />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Início *
+                    <label className="notion-caption text-blue-800 mb-1 block">
+                      Data/Hora Início *
                     </label>
                     <input
                       type="datetime-local"
                       value={newEvent.startDateTime}
                       onChange={(e) => setNewEvent({ ...newEvent, startDateTime: e.target.value })}
-                      className="input-field"
+                      className="input-field w-full"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                      Fim *
+                    <label className="notion-caption text-blue-800 mb-1 block">
+                      Data/Hora Fim *
                     </label>
                     <input
                       type="datetime-local"
                       value={newEvent.endDateTime}
                       onChange={(e) => setNewEvent({ ...newEvent, endDateTime: e.target.value })}
-                      className="input-field"
+                      className="input-field w-full"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
-                    E-mail do convidado
+                  <label className="notion-caption text-blue-800 mb-1 block">
+                    E-mail do Participante
                   </label>
                   <input
                     type="email"
                     value={newEvent.attendeeEmail}
                     onChange={(e) => setNewEvent({ ...newEvent, attendeeEmail: e.target.value })}
-                    placeholder="cliente@email.com"
-                    className="input-field"
+                    className="input-field w-full"
+                    placeholder={leadEmail || 'email@exemplo.com'}
                   />
                 </div>
 
-                <div className="flex space-x-3 pt-4">
+                <div className="flex justify-end gap-3">
                   <button
                     onClick={() => setShowCreateForm(false)}
-                    className="btn-secondary flex-1"
+                    className="btn-secondary"
+                    disabled={isCreatingEvent}
                   >
                     Cancelar
                   </button>
                   <button
                     onClick={createEvent}
+                    className="btn-primary"
                     disabled={isCreatingEvent}
-                    className="btn-primary flex-1"
                   >
-                    {isCreatingEvent ? (
-                      <div className="flex items-center justify-center space-x-2">
-                        <div className="loading-spinner w-4 h-4"></div>
-                        <span>Criando...</span>
-                      </div>
-                    ) : (
-                      'Criar Evento'
-                    )}
+                    {isCreatingEvent ? 'Criando...' : 'Criar Reunião'}
                   </button>
                 </div>
               </div>
@@ -347,56 +307,74 @@ export function CalendarIntegration({ userId, leadId, leadName, leadEmail }: Cal
           )}
 
           {/* Lista de Eventos */}
-          {events.length === 0 ? (
-            <div className="text-center py-6 text-gray-400">
-              <Calendar className="w-8 h-8 mx-auto mb-2 opacity-50" />
-              <p>Nenhum evento próximo</p>
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {events.slice(0, 5).map((event) => (
-                <div key={event.id} className="bg-gray-900 rounded-lg p-4 border border-gray-700">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <h4 className="font-medium text-white mb-1">{event.title}</h4>
-                      
-                      <div className="flex items-center space-x-4 text-sm text-gray-400 mb-2">
-                        <div className="flex items-center space-x-1">
-                          <Clock className="w-4 h-4" />
-                          <span>{formatDateTime(event.start_time)}</span>
-                        </div>
+          <div>
+            <h4 className="notion-subtitle text-gray-900 mb-4">Próximas Reuniões</h4>
+            
+            {events.length === 0 ? (
+              <div className="text-center py-8">
+                <Clock className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                <p className="notion-body text-gray-500">Nenhuma reunião agendada</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {events.slice(0, 5).map((event) => (
+                  <div key={event.id} className="bg-gray-50 rounded-lg p-4">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h5 className="notion-subtitle text-gray-900">{event.title}</h5>
                         
-                        {event.attendees.length > 0 && (
-                          <div className="flex items-center space-x-1">
-                            <Users className="w-4 h-4" />
-                            <span>{event.attendees.length} convidado(s)</span>
+                        <div className="flex items-center gap-4 mt-2">
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-4 h-4 text-gray-400" />
+                            <span className="notion-caption text-gray-600">
+                              {formatDateTime(event.start_time)}
+                            </span>
                           </div>
+                          
+                          {event.attendees.length > 0 && (
+                            <div className="flex items-center gap-1">
+                              <Users className="w-4 h-4 text-gray-400" />
+                              <span className="notion-caption text-gray-600">
+                                {event.attendees.length} participante{event.attendees.length > 1 ? 's' : ''}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+
+                        {event.description && (
+                          <p className="notion-body text-gray-600 mt-2 text-sm">
+                            {event.description}
+                          </p>
                         )}
                       </div>
 
-                      {event.description && (
-                        <p className="text-sm text-gray-300 mb-2 line-clamp-2">
-                          {event.description}
-                        </p>
+                      {event.meeting_url && (
+                        <a
+                          href={event.meeting_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-secondary flex items-center gap-1 ml-4"
+                        >
+                          <Video className="w-4 h-4" />
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
                       )}
                     </div>
-
-                    {event.meeting_url && (
-                      <a
-                        href={event.meeting_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center space-x-1 text-accent-400 hover:text-accent-300 transition-colors"
-                      >
-                        <Video className="w-4 h-4" />
-                        <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Status da Integração */}
+          <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span className="notion-caption text-green-800">
+                Google Calendar conectado e sincronizado
+              </span>
             </div>
-          )}
+          </div>
         </div>
       )}
     </div>
