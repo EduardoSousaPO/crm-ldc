@@ -28,9 +28,9 @@ export function AdminDashboard({ currentUser }: AdminDashboardProps) {
   }
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="min-h-[calc(100vh-8rem)] flex flex-col">
       {/* Header com KPIs */}
-      <div className="flex-shrink-0 p-6 mx-6 bg-white/80 backdrop-blur-sm border-b border-gray-200 rounded-t-2xl mt-6">
+      <div className="flex-shrink-0 p-6 bg-white/80 backdrop-blur-sm border-b border-gray-200">
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
@@ -110,7 +110,7 @@ export function AdminDashboard({ currentUser }: AdminDashboardProps) {
       </div>
 
       {/* Pipeline Section */}
-      <div className="flex-1 overflow-hidden mx-6 bg-white/50 backdrop-blur-sm rounded-b-2xl mb-6">
+      <div className="flex-1 overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
         <OptimizedKanbanBoard 
           leads={leads}
           currentUserId={currentUser.id}

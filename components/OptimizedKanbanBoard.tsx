@@ -165,7 +165,7 @@ const OptimizedKanbanBoard = memo(({
   const activeLead = activeId ? leads.find(lead => lead.id === activeId) : null
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl overflow-hidden">
+    <div className="h-full flex flex-col bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Controles do Kanban */}
       <div className="flex-shrink-0 p-4 bg-white/90 backdrop-blur-sm border-b border-gray-200 shadow-sm">
         <div className="flex items-center justify-between">

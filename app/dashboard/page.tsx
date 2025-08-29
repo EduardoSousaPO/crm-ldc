@@ -97,14 +97,16 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-br from-slate-50 to-gray-100 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
       <DashboardHeader user={user} />
-      <main className="flex-1 overflow-hidden">
-        {userProfile.role === 'admin' ? (
-          <AdminDashboard currentUser={userProfile} />
-        ) : (
-          <ConsultorDashboard currentUser={userProfile} />
-        )}
+      <main className="px-8 py-6">
+        <div className="max-w-7xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden">
+          {userProfile.role === 'admin' ? (
+            <AdminDashboard currentUser={userProfile} />
+          ) : (
+            <ConsultorDashboard currentUser={userProfile} />
+          )}
+        </div>
       </main>
     </div>
   )
