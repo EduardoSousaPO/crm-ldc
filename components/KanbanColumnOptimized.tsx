@@ -4,7 +4,7 @@ import { memo, useMemo } from 'react'
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { KanbanCardCompact } from './KanbanCardCompact'
-import { Plus, Filter, MoreHorizontal } from 'lucide-react'
+import { Plus, MoreHorizontal } from 'lucide-react'
 import type { Database } from '@/types/supabase'
 
 type Lead = Database['public']['Tables']['leads']['Row']
@@ -60,94 +60,90 @@ const KanbanColumnOptimized = memo(({
     return { total, totalValue, hotLeads }
   }, [leads])
 
+  // Cores do status no estilo Notion
+  const getStatusColor = (status: LeadStatus) => {
+    const colors = {
+      'lead_qualification': '#6B7280', // Gray
+      'initial_contact': '#8B5CF6',    // Purple  
+      'meeting_scheduled': '#3B82F6',  // Blue
+      'discovery_call': '#06B6D4',    // Cyan
+      'proposal_sent': '#F59E0B',     // Amber
+      'negotiation': '#EF4444',       // Red
+      'client': '#10B981'             // Green
+    }
+    return colors[status] || '#6B7280'
+  }
+
   return (
-    <div className="flex flex-col h-full bg-white rounded-2xl border border-gray-300/50 shadow-lg backdrop-blur-sm">
-      {/* Header da Coluna */}
-      <div className="flex-shrink-0 p-4 border-b border-gray-200 bg-gradient-to-r from-slate-50 via-gray-50 to-slate-50 rounded-t-2xl">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center space-x-2 min-w-0">
-            <div className={`w-4 h-4 rounded-full ${color.replace('bg-', 'bg-')} flex-shrink-0 shadow-sm`}></div>
-            <h3 className="font-bold text-gray-800 truncate text-sm">{title}</h3>
-            <span className="px-2.5 py-1 text-xs font-bold bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 rounded-full shadow-sm flex-shrink-0">
+    <div className="flex flex-col h-full">
+      {/* Header da Coluna - Estilo Notion Minimalista */}
+      <div className="flex-shrink-0 mb-3 px-2">
+        <div className="flex items-center justify-between py-1">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
+              <div 
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: getStatusColor(id) }}
+              />
+              <h3 className="notion-subtitle font-medium text-gray-700 text-sm">{title}</h3>
+            </div>
+            <span className="notion-caption bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded text-xs">
               {stats.total}
             </span>
           </div>
           
-          <div className="flex items-center space-x-1">
-            <button className="p-1 hover:bg-gray-100 rounded transition-colors">
-              <Filter className="w-4 h-4 text-gray-400" />
-            </button>
-            <button className="p-1 hover:bg-gray-100 rounded transition-colors">
-              <MoreHorizontal className="w-4 h-4 text-gray-400" />
-            </button>
-          </div>
-        </div>
-        
-        <p className="text-xs text-gray-600 mb-3 truncate font-medium">{description}</p>
-        
-        {/* Estatísticas Rápidas */}
-        <div className="flex items-center justify-between text-xs text-gray-700">
-          <div className="flex items-center space-x-2 min-w-0">
-            {stats.totalValue > 0 && (
-              <span className="bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-800 px-2.5 py-1 rounded-full font-bold border border-blue-200/50 shadow-sm">
-                R$ {(stats.totalValue / 1000).toFixed(0)}k
-              </span>
-            )}
-            {stats.hotLeads > 0 && (
-              <span className="bg-gradient-to-r from-red-50 to-rose-50 text-red-800 px-2.5 py-1 rounded-full font-bold border border-red-200/50 shadow-sm">
-                {stats.hotLeads} quentes
-              </span>
-            )}
-          </div>
-          
-          {onAddLead && (
-            <button
-              onClick={onAddLead}
-              className="flex items-center space-x-1 bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-800 px-2.5 py-1 rounded-full hover:from-emerald-100 hover:to-green-100 transition-all text-xs font-bold border border-emerald-200/50 shadow-sm hover:shadow-md"
-            >
-              <Plus className="w-3 h-3" />
-              <span className="hidden sm:inline">Add</span>
-            </button>
-          )}
+          <button className="p-1 hover:bg-gray-100 rounded-md transition-colors opacity-0 group-hover:opacity-100">
+            <MoreHorizontal className="w-3 h-3 text-gray-400" />
+          </button>
         </div>
       </div>
 
-      {/* Lista de Cards */}
+      {/* Área de Drop - Estilo Notion */}
       <div
         ref={setNodeRef}
         className={`
-          flex-1 p-3 space-y-3 overflow-y-auto
-          ${isOver ? 'bg-gradient-to-b from-blue-50 to-indigo-50 border-2 border-dashed border-blue-400/60' : 'bg-gradient-to-b from-gray-50/50 to-slate-50/50'}
-          transition-all duration-300 rounded-b-2xl
+          flex-1 rounded-lg p-2 transition-all duration-150 min-h-[500px]
+          ${isOver ? 'bg-blue-50 border-2 border-blue-200 border-dashed' : 'bg-gray-50/30'}
         `}
-        style={{ minHeight: '500px' }}
+        style={{ backgroundColor: isOver ? '#eff6ff' : '#f7f6f3' }}
       >
         <SortableContext items={sortedLeads.map(lead => lead.id)} strategy={verticalListSortingStrategy}>
-          {sortedLeads.length > 0 ? (
-            sortedLeads.map((lead) => (
+          <div className="space-y-2">
+            {sortedLeads.map((lead) => (
               <KanbanCardCompact
                 key={lead.id}
                 lead={lead}
                 currentUserId={currentUserId}
                 isAdmin={isAdmin}
               />
-            ))
-          ) : (
-            <div className="flex flex-col items-center justify-center py-12 text-center">
-              <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mb-3">
-                <Plus className="w-6 h-6 text-gray-400" />
+            ))}
+            
+            {/* Botão Add Lead - Estilo Notion */}
+            {onAddLead && (
+              <button
+                onClick={onAddLead}
+                className="w-full p-2 text-left text-gray-400 hover:text-gray-600 hover:bg-gray-100/50 rounded-md transition-all duration-150 border-2 border-dashed border-gray-200 hover:border-gray-300 group"
+              >
+                <div className="flex items-center gap-2">
+                  <Plus className="w-3 h-3" />
+                  <span className="text-sm">Adicionar lead</span>
+                </div>
+              </button>
+            )}
+            
+            {/* Empty State - Estilo Notion */}
+            {sortedLeads.length === 0 && !onAddLead && (
+              <div className="flex flex-col items-center justify-center py-8 text-center">
+                <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center mb-2">
+                  <div 
+                    className="w-2 h-2 rounded-full"
+                    style={{ backgroundColor: getStatusColor(id) }}
+                  />
+                </div>
+                <p className="notion-caption text-gray-400">Nenhum lead nesta fase</p>
               </div>
-              <p className="text-sm text-gray-500 mb-2">Nenhum lead nesta fase</p>
-              {onAddLead && (
-                <button
-                  onClick={onAddLead}
-                  className="text-xs text-petroleum-600 hover:text-petroleum-700 transition-colors"
-                >
-                  Adicionar primeiro lead
-                </button>
-              )}
-            </div>
-          )}
+            )}
+          </div>
         </SortableContext>
       </div>
     </div>
@@ -157,4 +153,3 @@ const KanbanColumnOptimized = memo(({
 KanbanColumnOptimized.displayName = 'KanbanColumnOptimized'
 
 export { KanbanColumnOptimized }
-

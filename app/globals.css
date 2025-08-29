@@ -7,27 +7,27 @@
 
 @layer base {
   :root {
-    /* LDC Capital - Design System Limpo */
+    /* Notion-inspired Design System */
     --background: 0 0% 100%; /* Branco puro */
-    --foreground: 0 0% 0%; /* Preto */
+    --foreground: 210 11% 15%; /* #37352f - Notion text */
     --card: 0 0% 100%; /* Branco para cards */
-    --card-foreground: 0 0% 0%;
+    --card-foreground: 210 11% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
+    --popover-foreground: 210 11% 15%;
     --primary: 217 33% 17%; /* Azul petróleo #334155 */
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 40% 98%; /* Cinza muito claro */
-    --secondary-foreground: 0 0% 0%;
-    --muted: 210 40% 97%; /* #f8fafc */
-    --muted-foreground: 217 33% 17%;
+    --secondary: 46 16% 97%; /* #f7f6f3 - Notion gray */
+    --secondary-foreground: 210 11% 15%;
+    --muted: 46 16% 97%; /* #f7f6f3 */
+    --muted-foreground: 210 9% 46%; /* #787774 - Notion light text */
     --accent: 217 33% 17%; /* Azul petróleo */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
-    --border: 214.3 31.8% 91.4%; /* #e2e8f0 */
-    --input: 214.3 31.8% 91.4%;
-    --ring: 217 33% 17%; /* Azul petróleo */
-    --radius: 0.75rem; /* Bordas mais suaves */
+    --border: 46 13% 88%; /* #e3e2e0 - Notion border */
+    --input: 46 13% 88%;
+    --ring: 217 33% 17%;
+    --radius: 0.375rem; /* Bordas mais sutis como Notion */
   }
 
   .dark {
@@ -60,10 +60,11 @@
   
   body {
     background-color: #ffffff; /* Fundo branco puro */
-    color: #000000; /* Texto preto */
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #37352f; /* Notion text color */
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 400;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.5;
   }
   
   /* Modo escuro desabilitado - apenas modo claro */
@@ -72,10 +73,10 @@
     color: #000000;
   }
 
-  /* Scrollbar personalizada inspirada em x.ai */
+  /* Scrollbar minimalista inspirada no Notion */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
   }
 
   ::-webkit-scrollbar-track {
@@ -83,11 +84,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+    background: rgba(55, 53, 47, 0.16);
+    border-radius: 2px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-400 dark:bg-gray-500;
+    background: rgba(55, 53, 47, 0.24);
   }
 
   /* Animações suaves */
@@ -97,40 +99,45 @@
 }
 
 @layer components {
-  /* LDC Capital - Componentes Limpos */
+  /* Notion-inspired Components */
   .btn-primary {
-    @apply bg-petroleum-700 hover:bg-petroleum-800 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-petroleum-700 focus:ring-offset-2;
-    min-height: 44px; /* Touch-friendly */
+    @apply bg-blue-500 hover:bg-blue-600 text-white text-sm px-3 py-1.5 rounded-md font-medium transition-colors duration-150 border-0;
+    font-size: 14px;
+    line-height: 1.2;
   }
 
   .btn-secondary {
-    @apply bg-white hover:bg-gray-50 text-petroleum-700 px-6 py-3 rounded-xl font-medium transition-all duration-200 border border-gray-200 hover:border-petroleum-300 shadow-sm hover:shadow-md;
-    min-height: 44px;
+    @apply bg-white hover:bg-gray-50 text-gray-700 text-sm px-3 py-1.5 rounded-md font-medium transition-colors duration-150 border border-gray-200;
+    font-size: 14px;
+    line-height: 1.2;
   }
 
   .btn-ghost {
-    @apply hover:bg-gray-50 text-petroleum-700 px-4 py-2 rounded-lg font-medium transition-all duration-200;
-    min-height: 44px;
+    @apply hover:bg-gray-100 text-gray-700 text-sm px-2 py-1 rounded-md font-medium transition-colors duration-150;
+    font-size: 14px;
   }
 
   .card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6 transition-all duration-200 hover:shadow-md hover:border-petroleum-200;
+    @apply bg-white rounded-lg border border-gray-200 p-4 transition-all duration-150 hover:shadow-sm;
   }
 
   .card-minimal {
-    @apply bg-white rounded-lg shadow-sm border border-gray-100 p-4 transition-all duration-200 hover:shadow-md;
+    @apply bg-white rounded-md border border-gray-200 p-3 transition-all duration-150 hover:shadow-sm;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all duration-200;
+    @apply w-full px-3 py-2 text-sm rounded-md border border-gray-200 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-all duration-150;
+    font-size: 14px;
   }
 
   .kanban-column {
-    @apply bg-gray-50 dark:bg-gray-900 rounded-xl p-4 min-h-[600px] w-80 flex-shrink-0;
+    @apply bg-gray-50/50 rounded-lg p-3 min-h-[600px] w-80 flex-shrink-0;
+    background-color: #f7f6f3;
   }
 
   .kanban-card {
-    @apply bg-white dark:bg-gray-800 rounded-lg p-4 mb-3 shadow-sm border border-gray-200 dark:border-gray-700 cursor-pointer transition-all duration-200 hover:shadow-md hover:scale-[1.02];
+    @apply bg-white rounded-md p-3 mb-2 border border-gray-200 cursor-pointer transition-all duration-150 hover:shadow-sm;
+    border-color: #e3e2e0;
   }
 
   .kanban-card.dragging {
@@ -207,5 +214,43 @@
   
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Notion-style text utilities */
+  .notion-title {
+    @apply text-base font-semibold;
+    font-size: 16px;
+    line-height: 1.3;
+    color: #37352f;
+  }
+
+  .notion-subtitle {
+    @apply text-sm font-medium;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #37352f;
+  }
+
+  .notion-body {
+    @apply text-sm;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #787774;
+  }
+
+  .notion-caption {
+    @apply text-xs;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #787774;
+  }
+
+  /* Notion-style spacing */
+  .notion-spacing {
+    @apply space-y-1;
+  }
+
+  .notion-spacing-sm {
+    @apply space-y-0.5;
   }
 }
