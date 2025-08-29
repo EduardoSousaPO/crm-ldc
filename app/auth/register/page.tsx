@@ -6,6 +6,7 @@ import { createSupabaseClient } from '@/lib/supabase'
 import { toast } from 'react-hot-toast'
 import Link from 'next/link'
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from 'lucide-react'
+import { LDCLogo } from '@/components/LDCLogo'
 import type { Database } from '@/types/supabase'
 
 export default function RegisterPage() {
@@ -85,10 +86,10 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
-        {/* Logo/Brand - Estilo Notion */}
+        {/* Logo/Brand - LDC Capital */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-lg mb-4">
-            <div className="w-6 h-6 bg-gray-800 rounded-sm"></div>
+          <div className="inline-flex items-center justify-center mb-4">
+            <LDCLogo size="lg" variant="icon" />
           </div>
           <h1 className="notion-title text-2xl font-semibold text-gray-900 mb-1">
             Criar Conta

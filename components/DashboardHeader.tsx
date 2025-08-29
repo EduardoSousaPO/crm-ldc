@@ -12,6 +12,7 @@ import {
   Menu
 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
+import { LDCIcon } from '@/components/LDCLogo'
 import type { User } from '@supabase/supabase-js'
 
 interface DashboardHeaderProps {
@@ -58,11 +59,9 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
     <header className="bg-white border-b border-gray-100 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-14">
-          {/* Logo - Estilo Notion Minimalista */}
+          {/* Logo - LDC Capital */}
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-gray-800 rounded-sm flex items-center justify-center">
-              <div className="w-3 h-3 bg-white rounded-xs"></div>
-            </div>
+            <LDCIcon size={24} className="flex-shrink-0" />
             <div>
               <h1 className="notion-subtitle font-medium text-gray-900">CRM - LDC Capital</h1>
             </div>
