@@ -1,10 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useConsultorDashboard } from '@/hooks/useConsultorDashboard'
 import { OptimizedKanbanBoard } from './OptimizedKanbanBoard'
 import { DashboardSkeleton } from './LazyComponents'
-import { Target, Calendar, Clock, TrendingUp } from 'lucide-react'
+import { LeadExportModal } from './LeadExportModal'
+import { Target, Calendar, Clock, TrendingUp, Download } from 'lucide-react'
 import type { Database } from '@/types/supabase'
 
 type UserProfile = Database['public']['Tables']['users']['Row']
@@ -15,6 +16,7 @@ interface ConsultorDashboardProps {
 
 export function ConsultorDashboard({ currentUser }: ConsultorDashboardProps) {
   const { leads, tasks, stats, isLoading, error } = useConsultorDashboard(currentUser.id)
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false)
 
   if (error) {
     console.error('Erro no dashboard consultor:', error)
@@ -28,13 +30,23 @@ export function ConsultorDashboard({ currentUser }: ConsultorDashboardProps) {
     <div className="min-h-[calc(100vh-8rem)] flex flex-col">
       {/* Header com Estatísticas - Estilo Notion */}
       <div className="flex-shrink-0 p-6 bg-white border-b border-gray-100">
-        <div className="mb-4">
-          <h1 className="notion-title text-xl font-semibold text-gray-900">
-            Dashboard do Consultor
-          </h1>
-          <p className="notion-body text-gray-500 mt-0.5 text-sm">
-            Seus leads e performance individual
-          </p>
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h1 className="notion-title text-xl font-semibold text-gray-900">
+              Dashboard do Consultor
+            </h1>
+            <p className="notion-body text-gray-500 mt-0.5 text-sm">
+              Seus leads e performance individual
+            </p>
+          </div>
+          
+          <button
+            onClick={() => setIsExportModalOpen(true)}
+            className="btn-secondary flex items-center gap-1.5"
+          >
+            <Download className="w-4 h-4" />
+            <span>Exportar</span>
+          </button>
         </div>
         
         {/* Estatísticas - Estilo Notion Minimalista */}
@@ -106,6 +118,14 @@ export function ConsultorDashboard({ currentUser }: ConsultorDashboardProps) {
           isAdmin={false}
         />
       </div>
+
+      {/* Modal de Exportação */}
+      <LeadExportModal
+        isOpen={isExportModalOpen}
+        onClose={() => setIsExportModalOpen(false)}
+        currentUserId={currentUser.id}
+        isAdmin={false}
+      />
     </div>
   )
 }
