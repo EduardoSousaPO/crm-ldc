@@ -157,11 +157,11 @@ const KanbanCardCompact = memo(({ lead, currentUserId, isAdmin = false }: Kanban
           </div>
 
           {/* Consultor responsável (se admin) */}
-          {isAdmin && lead.assigned_to && (
+          {isAdmin && lead.consultant_id && (
             <div className="flex items-center gap-1">
               <User className="w-3 h-3 text-gray-400" />
               <span className="notion-caption text-gray-500">
-                {lead.assigned_to.substring(0, 2).toUpperCase()}
+                {lead.consultant_id.substring(0, 2).toUpperCase()}
               </span>
             </div>
           )}
@@ -175,7 +175,6 @@ const KanbanCardCompact = memo(({ lead, currentUserId, isAdmin = false }: Kanban
           isOpen={showDetailModal}
           onClose={() => setShowDetailModal(false)}
           currentUserId={currentUserId}
-          isAdmin={isAdmin}
         />
       )}
     </>

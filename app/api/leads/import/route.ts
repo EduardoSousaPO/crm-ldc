@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/supabase'
+import { cookies } from 'next/headers'
 import { z } from 'zod'
 
 // Schema de validação para leads
@@ -34,7 +35,8 @@ interface ImportResult {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createSupabaseServerClient()
+    const cookieStore = await cookies()
+    const supabase = createSupabaseServerClient(cookieStore)
     
     // Verificar autenticação
     const { data: { user }, error: authError } = await supabase.auth.getUser()
@@ -43,13 +45,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Buscar perfil do usuário
-    const { data: userProfile } = await supabase
+    const { data: userProfile, error: profileError } = await supabase
       .from('users')
       .select('*')
       .eq('id', user.id)
       .single()
 
-    if (!userProfile) {
+    if (profileError || !userProfile) {
       return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 })
     }
 
@@ -73,7 +75,7 @@ export async function POST(request: NextRequest) {
 
     // Buscar consultores disponíveis se for distribuição automática
     let consultors: any[] = []
-    if (distributeEvenly && userProfile.role === 'admin') {
+    if (distributeEvenly && (userProfile as any).role === 'admin') {
       const { data } = await supabase
         .from('users')
         .select('id, name')
@@ -91,7 +93,7 @@ export async function POST(request: NextRequest) {
       .select('id, email')
       .in('email', emails)
 
-    const existingEmails = new Set(existingLeads?.map(lead => lead.email) || [])
+    const existingEmails = new Set(existingLeads?.map((lead: any) => lead.email) || [])
 
     // Processar cada lead
     for (let i = 0; i < leads.length; i++) {
@@ -103,7 +105,7 @@ export async function POST(request: NextRequest) {
 
         // Verificar duplicata
         if (validatedLead.email && existingEmails.has(validatedLead.email)) {
-          const existingLead = existingLeads?.find(l => l.email === validatedLead.email)
+          const existingLead = (existingLeads as any[])?.find((l: any) => l.email === validatedLead.email)
           result.duplicates.push({
             row: i + 1,
             email: validatedLead.email,
@@ -113,14 +115,14 @@ export async function POST(request: NextRequest) {
         }
 
         // Determinar consultor responsável
-        let assignedConsultorId = consultorId || userProfile.id
+        let assignedConsultorId = consultorId || (userProfile as any).id
 
         if (distributeEvenly && consultors.length > 0) {
           assignedConsultorId = consultors[result.imported % consultors.length].id
         }
 
         // Inserir lead
-        const { error: insertError } = await supabase
+        const { error: insertError } = await (supabase as any)
           .from('leads')
           .insert({
             name: validatedLead.name,

@@ -18,7 +18,7 @@ interface AdminDashboardProps {
 }
 
 export function AdminDashboard({ currentUser }: AdminDashboardProps) {
-  const { leads, consultors, stats, isLoading, error, refetch } = useAdminDashboard()
+  const { leads, consultors, stats, isLoading, error } = useAdminDashboard()
   const [isAssignmentModalOpen, setIsAssignmentModalOpen] = useState(false)
   const [isImportModalOpen, setIsImportModalOpen] = useState(false)
   const [isExportModalOpen, setIsExportModalOpen] = useState(false)
@@ -150,7 +150,6 @@ export function AdminDashboard({ currentUser }: AdminDashboardProps) {
         isOpen={isImportModalOpen}
         onClose={() => setIsImportModalOpen(false)}
         onImportComplete={() => {
-          refetch()
           setIsImportModalOpen(false)
         }}
         currentUserId={currentUser.id}

@@ -664,7 +664,6 @@ export function EnhancedLeadDetailModal({
             <div>
               <AudioRecorder
                 leadId={lead.id}
-                userId={currentUserId}
                 onTranscriptionComplete={(data) => {
                   toast.success('Análise de IA concluída!')
                   fetchLeadData()
@@ -677,8 +676,6 @@ export function EnhancedLeadDetailModal({
             <div>
               <AIAssistant
                 leadId={lead.id}
-                userId={currentUserId}
-                leadName={lead.name}
               />
             </div>
           )}

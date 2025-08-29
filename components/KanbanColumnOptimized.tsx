@@ -71,7 +71,7 @@ const KanbanColumnOptimized = memo(({
       'negotiation': '#EF4444',       // Red
       'client': '#10B981'             // Green
     }
-    return colors[status] || '#6B7280'
+    return (colors as any)[status] || '#6B7280'
   }
 
   return (

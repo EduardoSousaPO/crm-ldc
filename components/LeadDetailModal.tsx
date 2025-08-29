@@ -472,7 +472,7 @@ export function LeadDetailModal({ lead, isOpen, onClose, currentUserId, onLeadUp
                         {interaction.content}
                       </p>
                       
-                      {interaction.ai_analysis && renderAnalysis(interaction.ai_analysis)}
+                      {interaction.ai_summary && renderAnalysis(interaction.ai_summary)}
                     </div>
                   ))}
                 </div>

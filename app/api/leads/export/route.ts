@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/supabase'
+import { cookies } from 'next/headers'
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createSupabaseServerClient()
+    const cookieStore = await cookies()
+    const supabase = createSupabaseServerClient(cookieStore)
     
     // Verificar autenticação
     const { data: { user }, error: authError } = await supabase.auth.getUser()
@@ -12,13 +14,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Buscar perfil do usuário
-    const { data: userProfile } = await supabase
+    const { data: userProfile, error: profileError } = await supabase
       .from('users')
       .select('*')
       .eq('id', user.id)
       .single()
 
-    if (!userProfile) {
+    if (profileError || !userProfile) {
       return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 })
     }
 
@@ -31,7 +33,7 @@ export async function POST(request: NextRequest) {
     } = body
 
     // Construir query base
-    let query = supabase
+    let query = (supabase as any)
       .from('leads')
       .select(`
         *,
@@ -41,7 +43,7 @@ export async function POST(request: NextRequest) {
       `)
 
     // Aplicar filtros baseados no papel do usuário
-    if (userProfile.role !== 'admin') {
+    if ((userProfile as any).role !== 'admin') {
       query = query.eq('consultant_id', user.id)
     }
 
@@ -50,7 +52,7 @@ export async function POST(request: NextRequest) {
       query = query.in('status', filters.status)
     }
 
-    if (filters.consultorId && userProfile.role === 'admin') {
+    if (filters.consultorId && (userProfile as any).role === 'admin') {
       query = query.eq('consultant_id', filters.consultorId)
     }
 
@@ -85,11 +87,11 @@ export async function POST(request: NextRequest) {
     }
 
     // Processar dados para exportação
-    const processedData = leads?.map(lead => {
+    const processedData = leads?.map((lead: any) => {
       const baseData: any = {}
 
       // Incluir apenas colunas selecionadas
-      columns.forEach(column => {
+      columns.forEach((column: string) => {
         switch (column) {
           case 'name':
             baseData['Nome'] = lead.name
