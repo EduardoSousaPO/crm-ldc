@@ -9,7 +9,8 @@ import {
   LogOut, 
   Bell,
   Search,
-  Menu
+  Menu,
+  BookOpen
 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
 import { LDCIcon } from '@/components/LDCLogo'
@@ -84,6 +85,15 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
             {/* Search - Mobile */}
             <button className="md:hidden p-2 hover:bg-gray-100 rounded-md transition-colors">
               <Search className="w-4 h-4 text-gray-600" />
+            </button>
+
+            {/* Manual */}
+            <button 
+              onClick={() => router.push('/dashboard/manual')}
+              className="p-2 hover:bg-gray-100 rounded-md transition-colors group"
+              title="Manual Interativo"
+            >
+              <BookOpen className="w-4 h-4 text-gray-600 group-hover:text-blue-600 transition-colors" />
             </button>
 
             {/* Notifications */}
