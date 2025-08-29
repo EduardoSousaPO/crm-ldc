@@ -50,169 +50,270 @@ interface ManualStep {
 const manualSections: ManualSection[] = [
   {
     id: 'welcome',
-    title: 'Boas-vindas ao CRM',
-    description: 'Introdução e visão geral da plataforma',
+    title: '🏠 Bem-vindo ao seu CRM',
+    description: 'Vamos começar! Conheça o que este sistema pode fazer por você',
     icon: Home,
-    duration: '2 min',
+    duration: '3 min',
     color: 'text-blue-600',
     bgColor: 'bg-blue-50',
     steps: [
       {
         id: 'intro',
-        title: 'Bem-vindo à LDC Capital',
-        content: 'Este CRM foi desenvolvido especialmente para consultores de investimento, com IA integrada e automações inteligentes.',
+        title: '👋 Olá! Você está no lugar certo',
+        content: 'Este é o CRM da LDC Capital - sua central de comando para gerenciar clientes, fechar negócios e aumentar suas vendas. Aqui você vai aprender tudo o que precisa para usar o sistema como um profissional.',
         type: 'info'
       },
       {
-        id: 'overview',
-        title: 'Visão Geral das Funcionalidades',
-        content: 'Dashboard inteligente, pipeline visual, IA para análise, importação automática e muito mais.',
+        id: 'what-can-do',
+        title: '🚀 O que você pode fazer aqui?',
+        content: '• Organizar seus leads em um pipeline visual\n• Usar IA para analisar conversas\n• Importar centenas de contatos do Excel\n• Agendar reuniões automaticamente\n• Ver relatórios de performance em tempo real',
         type: 'info'
+      },
+      {
+        id: 'how-works',
+        title: '⏱️ Como funciona este tutorial?',
+        content: 'Você vai passar por 8 seções rápidas. Cada uma ensina uma parte importante do sistema. Pode ir no seu ritmo - o progresso fica salvo automaticamente!',
+        type: 'tip'
       }
     ]
   },
   {
     id: 'navigation',
-    title: 'Navegação Básica',
-    description: 'Como navegar pela interface do CRM',
+    title: '🧭 Como navegar no sistema',
+    description: 'Aprenda onde estão as coisas e como se mover rapidamente',
     icon: MousePointer,
-    duration: '3 min',
+    duration: '4 min',
     color: 'text-purple-600',
     bgColor: 'bg-purple-50',
     steps: [
       {
-        id: 'menu',
-        title: 'Menu Principal',
-        content: 'Acesse todas as funcionalidades através do menu lateral. Dashboard, Pipeline, Configurações e este Manual.',
-        type: 'action',
-        interactive: true
+        id: 'header-tour',
+        title: '📍 Barra superior - Seus atalhos principais',
+        content: 'No topo da tela você tem:\n• 🏠 Logo da LDC Capital (clique para voltar ao início)\n• 🔍 Barra de busca (procure qualquer lead ou tarefa)\n• 📖 Ícone do manual (este tutorial que você está vendo)\n• 🔔 Notificações importantes\n• 👤 Seu perfil e configurações',
+        type: 'action'
       },
       {
-        id: 'search',
-        title: 'Busca Inteligente',
-        content: 'Use Ctrl+K para busca rápida em leads, tarefas e contatos.',
+        id: 'main-areas',
+        title: '🗺️ Principais áreas do sistema',
+        content: 'O CRM tem 3 áreas principais:\n• **Dashboard** - Visão geral dos seus números\n• **Pipeline** - Seus leads organizados por etapa\n• **Configurações** - Ajustes do seu perfil',
+        type: 'info'
+      },
+      {
+        id: 'quick-search',
+        title: '⚡ Busca rápida - Seu melhor amigo',
+        content: 'Pressione **Ctrl + K** a qualquer momento para buscar:\n• Nomes de clientes\n• Empresas\n• Telefones ou emails\n• Tarefas pendentes\n\nÉ a forma mais rápida de encontrar qualquer coisa!',
+        type: 'tip'
+      },
+      {
+        id: 'keyboard-shortcuts',
+        title: '⌨️ Atalhos que vão te economizar tempo',
+        content: '• **Ctrl + K** = Buscar qualquer coisa\n• **Ctrl + N** = Criar novo lead\n• **Setas ← →** = Navegar neste tutorial\n• **Enter** = Marcar seção como concluída',
         type: 'tip'
       }
     ]
   },
   {
     id: 'leads',
-    title: 'Gestão de Leads',
-    description: 'Pipeline Kanban e gestão completa de prospects',
+    title: '🎯 Gerenciar seus leads (o coração do sistema)',
+    description: 'Como organizar, acompanhar e converter seus prospects em clientes',
     icon: Users,
-    duration: '5 min',
+    duration: '6 min',
     color: 'text-green-600',
     bgColor: 'bg-green-50',
     steps: [
       {
-        id: 'kanban',
-        title: 'Pipeline Kanban',
-        content: 'Arraste e solte leads entre as etapas. Cada coluna representa uma fase do processo comercial.',
+        id: 'what-is-pipeline',
+        title: '🔄 O que é o Pipeline?',
+        content: 'O Pipeline é como um funil de vendas visual. Seus leads (possíveis clientes) passam por etapas:\n\n**1. Qualificação** → Novos contatos\n**2. Primeiro Contato** → Primeira conversa\n**3. Reunião Agendada** → Interesse confirmado\n**4. Proposta Enviada** → Negociação\n**5. Cliente** → Fechou negócio! 🎉',
+        type: 'info'
+      },
+      {
+        id: 'drag-and-drop',
+        title: '🖱️ Arrastar e soltar - Simples assim!',
+        content: 'Para mover um lead de uma etapa para outra:\n\n1. **Clique** no cartão do lead\n2. **Arraste** para a coluna da próxima etapa\n3. **Solte** - Pronto!\n\nO sistema salva automaticamente e atualiza a data da mudança.',
         type: 'action',
         interactive: true
       },
       {
-        id: 'lead-details',
-        title: 'Detalhes do Lead',
-        content: 'Clique em qualquer lead para ver informações completas, histórico e próximas ações.',
+        id: 'lead-cards',
+        title: '📋 Entendendo os cartões dos leads',
+        content: 'Cada cartão mostra:\n• **Nome** da pessoa/empresa\n• **Telefone** e **email** (se tiver)\n• **Origem** - como chegou até você\n• **Score** - pontuação de interesse (0-100)\n• **Data** da última atualização',
         type: 'info'
+      },
+      {
+        id: 'lead-details',
+        title: '🔍 Ver detalhes completos',
+        content: '**Clique em qualquer cartão** para ver:\n• Histórico completo de conversas\n• Tarefas pendentes\n• Próximas reuniões\n• Gravações de áudio (se tiver)\n• Análises da IA\n\nÉ sua ficha completa do cliente!',
+        type: 'action'
+      },
+      {
+        id: 'add-new-lead',
+        title: '➕ Como adicionar um novo lead',
+        content: '**3 formas fáceis:**\n\n1. **Botão "+"** em qualquer coluna\n2. **Ctrl + N** (atalho rápido)\n3. **Importar do Excel** (vamos ver depois)\n\nPreencha nome, telefone/email e pronto!',
+        type: 'action'
       }
     ]
   },
   {
     id: 'ai',
-    title: 'IA Assistant',
-    description: 'Transcrição e análise inteligente de conversas',
+    title: '🧠 IA que trabalha para você',
+    description: 'Deixe a inteligência artificial analisar suas conversas e sugerir próximos passos',
     icon: Brain,
-    duration: '4 min',
+    duration: '5 min',
     color: 'text-indigo-600',
     bgColor: 'bg-indigo-50',
     steps: [
       {
-        id: 'recording',
-        title: 'Gravação de Áudio',
-        content: 'Grave ligações e reuniões diretamente no CRM. A IA transcreverá automaticamente.',
+        id: 'what-is-ai',
+        title: '🤖 O que a IA faz por você?',
+        content: 'A IA do CRM é como ter um assistente pessoal que:\n• **Escuta** suas ligações e reuniões\n• **Transcreve** tudo que foi falado\n• **Analisa** os pontos importantes\n• **Sugere** próximas ações\n• **Identifica** oportunidades de venda',
+        type: 'info'
+      },
+      {
+        id: 'how-to-record',
+        title: '🎙️ Como gravar uma conversa',
+        content: '**Passo a passo:**\n\n1. Abra os detalhes de um lead\n2. Clique na aba **"Áudio"**\n3. Clique no botão **vermelho** para gravar\n4. Fale normalmente durante a ligação\n5. Clique **"Parar"** quando terminar\n\nA IA vai processar automaticamente!',
         type: 'action'
       },
       {
-        id: 'analysis',
-        title: 'Análise Inteligente',
-        content: 'A IA extrai insights, próximas ações e pontos importantes das suas conversas.',
+        id: 'ai-analysis',
+        title: '📊 Entendendo a análise da IA',
+        content: 'Após processar, você recebe:\n\n**📝 Transcrição completa** - Tudo que foi falado\n**🎯 Resumo** - Pontos principais em 3 linhas\n**📋 Próximas ações** - O que fazer depois\n**💰 Oportunidades** - Sinais de interesse\n**⚠️ Objeções** - Pontos de resistência',
         type: 'info'
+      },
+      {
+        id: 'ai-suggestions',
+        title: '💡 Usando as sugestões da IA',
+        content: 'A IA pode sugerir:\n• **Email de follow-up** personalizado\n• **Mensagem de WhatsApp** específica\n• **Próxima reunião** com agenda\n• **Documentos** para enviar\n\nBasta clicar e usar as sugestões prontas!',
+        type: 'tip'
       }
     ]
   },
   {
     id: 'import-export',
-    title: 'Importação/Exportação',
-    description: 'Gestão de dados em Excel e CSV',
+    title: '📊 Importar e exportar seus contatos',
+    description: 'Traga seus contatos do Excel e leve dados para análises externas',
     icon: FileSpreadsheet,
-    duration: '3 min',
+    duration: '4 min',
     color: 'text-orange-600',
     bgColor: 'bg-orange-50',
     steps: [
       {
-        id: 'import',
-        title: 'Importar Leads',
-        content: 'Arraste arquivos Excel/CSV ou use nosso template para importação em massa.',
+        id: 'why-import',
+        title: '🚀 Por que importar contatos?',
+        content: 'Se você já tem uma lista de contatos no Excel, WhatsApp ou outro lugar, não precisa digitar um por um!\n\n**Você pode importar:**\n• Planilhas do Excel (.xlsx)\n• Arquivos CSV\n• Centenas de contatos de uma vez\n• Com nome, telefone, email, empresa',
+        type: 'info'
+      },
+      {
+        id: 'how-to-import',
+        title: '📥 Como importar sua planilha',
+        content: '**Passo a passo:**\n\n1. No Dashboard, clique **"Importar"**\n2. **Arraste** seu arquivo Excel ou clique para selecionar\n3. **Mapeie** as colunas (Nome → Nome, Tel → Telefone)\n4. **Revise** os dados antes de importar\n5. Clique **"Importar"** - Pronto!\n\nO sistema ignora duplicatas automaticamente.',
         type: 'action'
       },
       {
-        id: 'export',
-        title: 'Exportar Dados',
-        content: 'Exporte leads com filtros personalizados para análises externas.',
+        id: 'export-data',
+        title: '📤 Exportar seus dados',
+        content: '**Quando usar:**\n• Fazer backup dos seus leads\n• Análises no Excel\n• Relatórios para a gerência\n• Compartilhar com a equipe\n\n**Como fazer:**\nClique em **"Exportar"** → Escolha filtros → Baixe o arquivo',
         type: 'info'
+      },
+      {
+        id: 'template-tip',
+        title: '💡 Dica: Use nosso template',
+        content: 'Para importar sem erro:\n\n1. Baixe nosso **template Excel**\n2. Preencha com seus contatos\n3. Importe normalmente\n\nAssim você garante que tudo vai funcionar perfeitamente!',
+        type: 'tip'
       }
     ]
   },
   {
     id: 'calendar',
-    title: 'Calendário Integrado',
-    description: 'Sincronização com Google Calendar',
+    title: '📅 Agendar reuniões automaticamente',
+    description: 'Conecte seu Google Calendar e nunca mais perca um compromisso',
     icon: Calendar,
-    duration: '2 min',
+    duration: '3 min',
     color: 'text-cyan-600',
     bgColor: 'bg-cyan-50',
     steps: [
       {
-        id: 'sync',
-        title: 'Sincronização',
-        content: 'Conecte seu Google Calendar para agendar reuniões diretamente do CRM.',
+        id: 'why-calendar',
+        title: '⏰ Por que conectar o calendário?',
+        content: '**Benefícios:**\n• Agendar reuniões direto do CRM\n• Sincronizar com seu Google Calendar\n• Receber lembretes automáticos\n• Não perder nenhum compromisso\n• Cliente recebe convite por email',
+        type: 'info'
+      },
+      {
+        id: 'how-to-connect',
+        title: '🔗 Como conectar seu Google Calendar',
+        content: '**Passo a passo:**\n\n1. Vá nos detalhes de um lead\n2. Clique na aba **"Calendário"**\n3. Clique **"Conectar Google Calendar"**\n4. Faça login na sua conta Google\n5. Autorize o acesso\n\nPronto! Agora você pode agendar direto do CRM.',
+        type: 'action'
+      },
+      {
+        id: 'schedule-meeting',
+        title: '📝 Agendando uma reunião',
+        content: '**Depois de conectado:**\n\n1. Escolha **data e hora**\n2. Digite o **assunto** da reunião\n3. Adicione **observações** se quiser\n4. Clique **"Agendar"**\n\nO cliente recebe o convite automaticamente!',
         type: 'action'
       }
     ]
   },
   {
     id: 'metrics',
-    title: 'Métricas e KPIs',
-    description: 'Dashboard analítico e relatórios',
+    title: '📈 Acompanhar seus resultados',
+    description: 'Números, gráficos e relatórios para melhorar sua performance',
     icon: BarChart3,
-    duration: '3 min',
+    duration: '4 min',
     color: 'text-red-600',
     bgColor: 'bg-red-50',
     steps: [
       {
-        id: 'dashboard',
-        title: 'Dashboard Analítico',
-        content: 'Acompanhe conversões, pipeline e performance em tempo real.',
+        id: 'dashboard-numbers',
+        title: '📊 Entendendo seu Dashboard',
+        content: 'Na tela inicial você vê:\n\n**📈 Total de Leads** - Quantos prospects você tem\n**🎯 Taxa de Conversão** - % que viram clientes\n**📅 Reuniões do Mês** - Compromissos agendados\n**💰 Meta do Mês** - Seu objetivo de vendas',
+        type: 'info'
+      },
+      {
+        id: 'pipeline-analysis',
+        title: '🔍 Analisando seu Pipeline',
+        content: '**O que observar:**\n• Quantos leads em cada etapa\n• Onde eles "param" mais tempo\n• Quais etapas precisam de atenção\n• Seu funil está equilibrado?\n\n**Dica:** Se muitos leads param numa etapa, foque nela!',
+        type: 'tip'
+      },
+      {
+        id: 'performance-tracking',
+        title: '🏆 Acompanhando sua evolução',
+        content: '**Métricas importantes:**\n• **Leads/dia** - Quantos novos contatos\n• **Conversões/semana** - Quantos fecharam\n• **Tempo médio** - Quanto demora para fechar\n• **Origem dos leads** - De onde vem mais clientes\n\nUse esses números para melhorar!',
         type: 'info'
       }
     ]
   },
   {
     id: 'advanced',
-    title: 'Dicas Avançadas',
-    description: 'Shortcuts e produtividade máxima',
+    title: '⚡ Dicas para ser um ninja do CRM',
+    description: 'Truques e atalhos para usar o sistema como um profissional',
     icon: Zap,
-    duration: '4 min',
+    duration: '5 min',
     color: 'text-yellow-600',
     bgColor: 'bg-yellow-50',
     steps: [
       {
-        id: 'shortcuts',
-        title: 'Atalhos de Teclado',
-        content: 'Ctrl+K (busca), Ctrl+N (novo lead), Ctrl+S (salvar). Seja mais produtivo!',
+        id: 'keyboard-ninja',
+        title: '⌨️ Atalhos que vão te economizar horas',
+        content: '**Principais atalhos:**\n• **Ctrl + K** = Buscar qualquer coisa\n• **Ctrl + N** = Novo lead rapidinho\n• **Ctrl + S** = Salvar (sempre!)\n• **Ctrl + Z** = Desfazer (salvou sua vida?)\n• **Tab** = Navegar entre campos\n• **Enter** = Confirmar ações',
         type: 'tip'
+      },
+      {
+        id: 'daily-routine',
+        title: '🌅 Rotina diária recomendada',
+        content: '**Comece o dia assim:**\n\n1. **Abra o Dashboard** - Veja seus números\n2. **Confira notificações** - O que precisa fazer\n3. **Revise o Pipeline** - Mova leads que avançaram\n4. **Faça follow-ups** - Use as sugestões da IA\n5. **Agende reuniões** - Para leads quentes\n6. **Atualize informações** - Mantenha tudo em dia',
+        type: 'action'
+      },
+      {
+        id: 'pro-tips',
+        title: '🎯 Dicas de profissional',
+        content: '**Para ser ainda melhor:**\n\n• **Use tags** - Organize leads por categorias\n• **Grave áudios** - A IA te ajuda depois\n• **Atualize scores** - Priorize leads quentes\n• **Faça backup** - Exporte dados regularmente\n• **Teste funcionalidades** - Explore o sistema\n• **Use este manual** - Volte quando precisar!',
+        type: 'tip'
+      },
+      {
+        id: 'need-help',
+        title: '🆘 Precisa de ajuda?',
+        content: '**Se tiver dúvidas:**\n\n• **Revise este manual** - Tudo está aqui\n• **Use o Ctrl+K** - Busque o que precisa\n• **Fale com o administrador** - Ele pode te ajudar\n• **Experimente** - O sistema é seguro para testar\n\n**Lembre-se:** Prática leva à perfeição! 🚀',
+        type: 'info'
       }
     ]
   }
@@ -380,12 +481,29 @@ export function ManualInterativo({ onClose, currentUserId, userRole = 'consultor
           {/* Sidebar - Índice */}
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-4">
+              {/* Como usar este manual */}
+              <div className="p-4 bg-green-50 rounded-lg border border-green-100 mb-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Lightbulb className="w-4 h-4 text-green-600" />
+                  <span className="font-medium text-green-900">Como usar este manual</span>
+                </div>
+                <div className="text-sm text-green-800 space-y-1">
+                  <p>• Clique nas seções para aprender</p>
+                  <p>• Use as setas ← → para navegar</p>
+                  <p>• Marque como concluído quando terminar</p>
+                  <p>• Seu progresso fica salvo automaticamente</p>
+                </div>
+              </div>
+
               {/* Modo Guiado */}
               <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
                 <div className="flex items-center gap-2 mb-2">
                   <Target className="w-4 h-4 text-blue-600" />
-                  <span className="font-medium text-blue-900">Modo Guiado</span>
+                  <span className="font-medium text-blue-900">Tour Automático</span>
                 </div>
+                <p className="text-sm text-blue-700 mb-3">
+                  Quer que eu te guie por todas as seções?
+                </p>
                 <button
                   onClick={() => setIsGuidedMode(!isGuidedMode)}
                   className={`w-full px-3 py-2 rounded-md text-sm transition-colors ${
@@ -394,7 +512,7 @@ export function ManualInterativo({ onClose, currentUserId, userRole = 'consultor
                       : 'bg-white text-blue-600 border border-blue-200'
                   }`}
                 >
-                  {isGuidedMode ? 'Desativar' : 'Ativar'} Tour Guiado
+                  {isGuidedMode ? '⏸️ Parar Tour' : '▶️ Iniciar Tour'}
                 </button>
               </div>
 
@@ -574,9 +692,47 @@ export function ManualInterativo({ onClose, currentUserId, userRole = 'consultor
                                 <h3 className="font-semibold text-gray-900 mb-2">
                                   {step.title}
                                 </h3>
-                                <p className="text-gray-700 leading-relaxed">
-                                  {step.content}
-                                </p>
+                                <div className="text-gray-700 leading-relaxed space-y-2">
+                                  {step.content.split('\n\n').map((paragraph, idx) => (
+                                    <div key={idx}>
+                                      {paragraph.split('\n').map((line, lineIdx) => {
+                                        // Renderizar listas com bullet points
+                                        if (line.startsWith('•')) {
+                                          return (
+                                            <div key={lineIdx} className="flex items-start gap-2 ml-2">
+                                              <span className="text-blue-500 mt-1">•</span>
+                                              <span dangerouslySetInnerHTML={{ 
+                                                __html: line.substring(1).trim()
+                                                  .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
+                                              }} />
+                                            </div>
+                                          )
+                                        }
+                                        // Renderizar listas numeradas
+                                        if (/^\d+\./.test(line)) {
+                                          return (
+                                            <div key={lineIdx} className="flex items-start gap-2 ml-2">
+                                              <span className="text-blue-500 font-semibold mt-1">
+                                                {line.match(/^\d+/)?.[0]}.
+                                              </span>
+                                              <span dangerouslySetInnerHTML={{ 
+                                                __html: line.replace(/^\d+\.\s*/, '')
+                                                  .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
+                                              }} />
+                                            </div>
+                                          )
+                                        }
+                                        // Renderizar texto normal
+                                        return (
+                                          <p key={lineIdx} dangerouslySetInnerHTML={{ 
+                                            __html: line
+                                              .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
+                                          }} />
+                                        )
+                                      })}
+                                    </div>
+                                  ))}
+                                </div>
 
                                 {step.type === 'tip' && (
                                   <div className="mt-3 flex items-center gap-2 text-amber-600">
