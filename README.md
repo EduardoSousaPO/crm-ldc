@@ -1,15 +1,15 @@
 # 🚀 CRM - LDC Capital
 
-Sistema de CRM inteligente da LDC Capital para gestão completa de clientes e investimentos. Kanban otimizado com IA integrada para máxima produtividade dos consultores.
+Sistema de CRM inteligente da LDC Capital otimizado para o processo de aquisição de clientes. Pipeline de 4 fases com automação completa via IA, N8N e WAHA para máxima eficiência dos consultores.
 
 ## ✨ Características
 
-- **Design inspirado em x.ai**: Interface limpa, escura e futurista
-- **Kanban de 7 fases**: Pipeline otimizado para consultoria de investimentos
-- **IA integrada**: Transcrição automática, geração de tarefas e follow-ups
-- **Drag & Drop**: Movimentação intuitiva de leads entre fases
-- **Tempo real**: Atualizações instantâneas via Supabase
-- **Mobile-first**: Responsivo e otimizado para todos os dispositivos
+- **Processo LDC Otimizado**: 4 fases específicas para aquisição de clientes
+- **Automação Completa**: IA + N8N + WAHA qualificam leads automaticamente  
+- **Endpoint Auto-Import**: API para receber leads do Google Sheets
+- **IA Integrada**: Transcrição, análise e sugestões automáticas
+- **Interface Sem Fricção**: Drag & Drop otimizado para o fluxo LDC
+- **Tempo Real**: Atualizações instantâneas e sincronização perfeita
 
 ## 🏗️ Stack Técnica
 
@@ -19,15 +19,19 @@ Sistema de CRM inteligente da LDC Capital para gestão completa de clientes e in
 - **IA**: OpenAI (Whisper + GPT-4)
 - **Automação**: N8N + Supabase Edge Functions
 
-## 📊 Pipeline de 7 Fases
+## 🎯 Pipeline LDC - Processo de Aquisição (4 Fases)
 
-1. **Lead Qualificado** → Entrada automática via integração
-2. **Contato Inicial** → IA valida dados + script de abertura  
-3. **Reunião Agendada** → Integração calendário + lembretes automáticos
-4. **Discovery Concluído** → Transcrição IA + extração de objetivos
-5. **Proposta Apresentada** → Resumo comparativo + agenda follow-up
-6. **Em Negociação** → Lembretes automáticos + mensagens sugeridas
-7. **Cliente Ativo** → Checklist onboarding + documentos
+1. **Lead Qualificado** → Qualificação automática via IA + N8N + WAHA
+2. **R1 Agendada** → Primeira reunião de diagnóstico
+3. **R2 + Proposta** → Estudo apresentado + proposta + follow-up  
+4. **Cliente Assinado** → Contrato fechado + onboarding automático
+
+### 🚀 Automações Integradas
+- **Entrada automática** de leads via Google Sheets
+- **IA transcreve** reuniões e gera resumos
+- **Follow-ups automáticos** personalizados
+- **Calendário integrado** com lembretes
+- **Métricas em tempo real** do funil de conversão
 
 ## 🚀 Como Executar
 
@@ -145,6 +149,61 @@ npm run type-check
 # Linter
 npm run lint
 ```
+
+## 🛠️ Scripts de Gerenciamento de Dados
+
+### Gerenciador Interativo
+```bash
+# Menu interativo com todas as opções
+node scripts/manage-data.js
+```
+
+### Backup e Restore
+```bash
+# Criar backup dos dados
+node scripts/backup-data.js
+
+# Listar backups disponíveis  
+node scripts/backup-data.js list
+
+# Restaurar backup específico
+node scripts/restore-backup.js backup-2025-09-22T14-30-00-000Z.json
+```
+
+### Usuários de Teste
+```bash
+# Criar usuários para testes E2E
+node scripts/create-test-users.js
+
+# Verificar se usuários existem e funcionam
+node scripts/create-test-users.js check
+```
+
+### Limpeza de Dados Demo
+```bash
+# ⚠️  ATENÇÃO: Apenas para DEV/STAGING
+# Execute o arquivo SQL no painel do Supabase:
+# scripts/clean-demo-data.sql
+```
+
+### Políticas RLS
+```bash
+# Aplicar políticas de segurança no banco
+node scripts/apply-rls-policies.js
+```
+
+## 🚦 Pré-requisitos para Testes E2E
+
+Antes de executar `npm run test:e2e`, certifique-se de que:
+
+1. **Servidor está rodando**: `npm run dev`
+2. **Usuários de teste existem**: `node scripts/create-test-users.js`
+3. **Banco tem dados**: Pelo menos alguns leads de exemplo
+4. **Variáveis de ambiente**: Configuradas corretamente
+
+### Credenciais de Teste
+- **Admin**: admin@ldccapital.com / admin123!@#
+- **Consultor**: consultor1@ldccapital.com / consultor123!
 
 ## 📈 Métricas de Sucesso
 

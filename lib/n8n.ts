@@ -130,7 +130,7 @@ export class N8NService {
         .from('automation_workflows')
         .update({
           last_run_at: new Date().toISOString(),
-          run_count: workflowData.run_count + 1,
+          run_count: (workflowData.run_count || 0) + 1,
         })
         .eq('id', execution.workflowId)
 

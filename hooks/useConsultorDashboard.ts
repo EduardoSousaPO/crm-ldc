@@ -71,7 +71,7 @@ export function useConsultorDashboard(consultorId: string): ConsultorDashboardDa
   const stats: ConsultorStats = {
     totalLeads: safeLeads.length,
     activeLeads: safeLeads.filter(lead => 
-      ['lead_qualificado', 'contato_inicial', 'reuniao_agendada', 'discovery_concluido', 'proposta_apresentada', 'em_negociacao'].includes(lead.status)
+      ['lead_qualificado', 'contato_inicial', 'reuniao_agendada', 'discovery_concluido', 'proposta_apresentada', 'em_negociacao'].includes(lead.status || 'lead_qualificado')
     ).length,
     conversionRate: safeLeads.length > 0 ? 
       Math.round((safeLeads.filter(lead => lead.status === 'cliente_ativo').length / safeLeads.length) * 100) : 0,

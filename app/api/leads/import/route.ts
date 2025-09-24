@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
             phone: validatedLead.phone,
             origin: validatedLead.origin || 'importacao',
             notes: validatedLead.notes,
-            status: 'lead_qualification',
+            status: 'lead_qualificado',
             consultant_id: assignedConsultorId,
             score: 0
           })

@@ -52,7 +52,7 @@ const AVAILABLE_COLUMNS = [
 ]
 
 const LEAD_STATUS_OPTIONS = [
-  { value: 'lead_qualification', label: 'Lead Qualificado' },
+  { value: 'lead_qualificado', label: 'Lead Qualificado' },
   { value: 'initial_contact', label: 'Contato Inicial' },
   { value: 'meeting_scheduled', label: 'Reunião Agendada' },
   { value: 'discovery_call', label: 'Discovery Call' },

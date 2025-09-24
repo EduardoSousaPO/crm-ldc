@@ -123,8 +123,8 @@ const manualSections: ManualSection[] = [
     steps: [
       {
         id: 'what-is-pipeline',
-        title: '🔄 O que é o Pipeline?',
-        content: 'O Pipeline é como um funil de vendas visual. Seus leads (possíveis clientes) passam por etapas:\n\n**1. Qualificação** → Novos contatos\n**2. Primeiro Contato** → Primeira conversa\n**3. Reunião Agendada** → Interesse confirmado\n**4. Proposta Enviada** → Negociação\n**5. Cliente** → Fechou negócio! 🎉',
+        title: '🔄 O Pipeline LDC - Processo de Aquisição',
+        content: 'O Pipeline da LDC Capital segue um processo otimizado de 4 fases:\n\n**1. Lead Qualificado** → Leads qualificados via IA + N8N automaticamente\n**2. R1 Agendada** → Primeira reunião de diagnóstico\n**3. R2 + Proposta** → Estudo apresentado + proposta + follow-up\n**4. Cliente Assinado** → Contrato fechado! 🎉\n\nCada fase tem automações específicas para maximizar conversão.',
         type: 'info'
       },
       {

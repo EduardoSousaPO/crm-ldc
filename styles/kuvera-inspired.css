@@ -1,0 +1,393 @@
+/* Kuvera-Inspired CRM Layout */
+/* Paleta: Preto (#000000), Grafite (#4A5568, #2D3748), Branco (#FFFFFF) */
+
+:root {
+  --kuvera-primary: #000000;
+  --kuvera-secondary: #4A5568;
+  --kuvera-tertiary: #2D3748;
+  --kuvera-background: #FFFFFF;
+  --kuvera-surface: #F7FAFC;
+  --kuvera-border: #E2E8F0;
+  --kuvera-text-primary: #000000;
+  --kuvera-text-secondary: #4A5568;
+  --kuvera-text-muted: #718096;
+}
+
+/* Typography - Kuvera Style */
+.kuvera-heading-xl {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--kuvera-text-primary);
+  letter-spacing: -0.025em;
+}
+
+.kuvera-heading-lg {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--kuvera-text-primary);
+  letter-spacing: -0.025em;
+}
+
+.kuvera-heading-md {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--kuvera-text-primary);
+}
+
+.kuvera-heading-sm {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--kuvera-text-primary);
+}
+
+.kuvera-body-lg {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--kuvera-text-secondary);
+}
+
+.kuvera-body {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--kuvera-text-secondary);
+}
+
+.kuvera-body-sm {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--kuvera-text-muted);
+}
+
+/* Layout Containers */
+.kuvera-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.kuvera-section {
+  padding: 3rem 0;
+}
+
+.kuvera-section-lg {
+  padding: 4rem 0;
+}
+
+/* Grid System - Kuvera Style */
+.kuvera-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.kuvera-grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.kuvera-grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.kuvera-grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Cards - Kuvera Style */
+.kuvera-card {
+  background: var(--kuvera-background);
+  border: 1px solid var(--kuvera-border);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.kuvera-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+  border-color: var(--kuvera-secondary);
+}
+
+.kuvera-card-header {
+  margin-bottom: 1rem;
+}
+
+.kuvera-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--kuvera-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.kuvera-card-description {
+  font-size: 0.95rem;
+  color: var(--kuvera-text-secondary);
+  line-height: 1.5;
+}
+
+.kuvera-card-content {
+  margin-bottom: 1.5rem;
+}
+
+.kuvera-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--kuvera-border);
+}
+
+/* Buttons - Kuvera Style */
+.kuvera-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  gap: 0.5rem;
+}
+
+.kuvera-btn-primary {
+  background: var(--kuvera-primary);
+  color: var(--kuvera-background);
+}
+
+.kuvera-btn-primary:hover {
+  background: var(--kuvera-tertiary);
+  transform: translateY(-1px);
+}
+
+.kuvera-btn-secondary {
+  background: var(--kuvera-background);
+  color: var(--kuvera-text-primary);
+  border: 1px solid var(--kuvera-border);
+}
+
+.kuvera-btn-secondary:hover {
+  background: var(--kuvera-surface);
+  border-color: var(--kuvera-secondary);
+}
+
+.kuvera-btn-ghost {
+  background: transparent;
+  color: var(--kuvera-text-secondary);
+}
+
+.kuvera-btn-ghost:hover {
+  background: var(--kuvera-surface);
+  color: var(--kuvera-text-primary);
+}
+
+/* Navigation - Kuvera Style */
+.kuvera-nav {
+  background: var(--kuvera-background);
+  border-bottom: 1px solid var(--kuvera-border);
+  padding: 1rem 0;
+}
+
+.kuvera-nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kuvera-nav-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--kuvera-text-primary);
+  text-decoration: none;
+}
+
+.kuvera-nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.kuvera-nav-link {
+  color: var(--kuvera-text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.kuvera-nav-link:hover {
+  color: var(--kuvera-text-primary);
+}
+
+.kuvera-nav-link.active {
+  color: var(--kuvera-text-primary);
+  font-weight: 600;
+}
+
+/* Stats/Metrics - Kuvera Style */
+.kuvera-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.kuvera-stat {
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--kuvera-surface);
+  border-radius: 8px;
+  border: 1px solid var(--kuvera-border);
+}
+
+.kuvera-stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--kuvera-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.kuvera-stat-label {
+  font-size: 0.875rem;
+  color: var(--kuvera-text-secondary);
+  font-weight: 500;
+}
+
+/* Forms - Kuvera Style */
+.kuvera-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.kuvera-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--kuvera-text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.kuvera-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--kuvera-border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease;
+  background: var(--kuvera-background);
+}
+
+.kuvera-input:focus {
+  outline: none;
+  border-color: var(--kuvera-secondary);
+  box-shadow: 0 0 0 3px rgba(74, 85, 104, 0.1);
+}
+
+.kuvera-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--kuvera-border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: var(--kuvera-background);
+  cursor: pointer;
+}
+
+/* Tables - Kuvera Style */
+.kuvera-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--kuvera-background);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.kuvera-table th {
+  background: var(--kuvera-surface);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--kuvera-text-primary);
+  border-bottom: 1px solid var(--kuvera-border);
+}
+
+.kuvera-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--kuvera-border);
+  color: var(--kuvera-text-secondary);
+}
+
+.kuvera-table tr:hover {
+  background: var(--kuvera-surface);
+}
+
+/* Badges/Tags - Kuvera Style */
+.kuvera-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.kuvera-badge-primary {
+  background: var(--kuvera-primary);
+  color: var(--kuvera-background);
+}
+
+.kuvera-badge-secondary {
+  background: var(--kuvera-surface);
+  color: var(--kuvera-text-secondary);
+  border: 1px solid var(--kuvera-border);
+}
+
+/* Spacing Utilities */
+.kuvera-space-y-2 > * + * { margin-top: 0.5rem; }
+.kuvera-space-y-4 > * + * { margin-top: 1rem; }
+.kuvera-space-y-6 > * + * { margin-top: 1.5rem; }
+.kuvera-space-y-8 > * + * { margin-top: 2rem; }
+
+.kuvera-space-x-2 > * + * { margin-left: 0.5rem; }
+.kuvera-space-x-4 > * + * { margin-left: 1rem; }
+.kuvera-space-x-6 > * + * { margin-left: 1.5rem; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .kuvera-container {
+    padding: 0 1rem;
+  }
+  
+  .kuvera-grid {
+    gap: 1rem;
+  }
+  
+  .kuvera-card {
+    padding: 1.5rem;
+  }
+  
+  .kuvera-heading-xl {
+    font-size: 2rem;
+  }
+  
+  .kuvera-heading-lg {
+    font-size: 1.75rem;
+  }
+  
+  .kuvera-nav-links {
+    gap: 1rem;
+  }
+}
+
+
+

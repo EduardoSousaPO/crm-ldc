@@ -84,11 +84,11 @@ export function InvestmentConsultingMetrics({
 
     // Filtrar leads por período
     const currentLeads = leads.filter(lead => 
-      new Date(lead.created_at) >= currentPeriodStart
+      new Date(lead.created_at || Date.now()) >= currentPeriodStart
     )
     const previousLeads = leads.filter(lead => 
-      new Date(lead.created_at) >= previousPeriodStart && 
-      new Date(lead.created_at) <= previousPeriodEnd
+      new Date(lead.created_at || Date.now()) >= previousPeriodStart && 
+      new Date(lead.created_at || Date.now()) <= previousPeriodEnd
     )
 
     // Calcular métricas específicas para consultoria de investimentos
@@ -187,7 +187,7 @@ export function InvestmentConsultingMetrics({
     const funnel = stages.map((stage, index) => {
       const stageLeads = leads.filter(lead => lead.status === stage)
       const totalLeads = leads.length
-      const previousStageLeads = index > 0 ? leads.filter(lead => stages.indexOf(lead.status) >= index - 1).length : totalLeads
+      const previousStageLeads = index > 0 ? leads.filter(lead => stages.indexOf(lead.status || 'lead_qualificado') >= index - 1).length : totalLeads
       
       return {
         stage: getStageLabel(stage),
@@ -205,8 +205,8 @@ export function InvestmentConsultingMetrics({
     if (convertedLeads.length === 0) return 0
 
     const totalDays = convertedLeads.reduce((sum, lead) => {
-      const createdDate = new Date(lead.created_at)
-      const updatedDate = new Date(lead.updated_at)
+      const createdDate = new Date(lead.created_at || Date.now())
+      const updatedDate = new Date(lead.updated_at || lead.created_at || Date.now())
       const diffTime = Math.abs(updatedDate.getTime() - createdDate.getTime())
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
       return sum + diffDays

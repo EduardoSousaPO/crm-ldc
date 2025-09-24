@@ -52,7 +52,7 @@ export function NewLeadModal({ isOpen, onClose, onSubmit }: NewLeadModalProps) {
         phone: formData.phone.trim() || null,
         origin: formData.origin || null,
         notes: formData.notes.trim() || null,
-        status: 'lead_qualification',
+        status: 'lead_qualificado',
         consultant_id: '', // Será preenchido no componente pai
         score: 0,
       })

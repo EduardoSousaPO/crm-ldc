@@ -14,7 +14,7 @@ import {
 } from 'lucide-react'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { LeadDetailModal } from './LeadDetailModal'
+import { OptimizedLeadModal } from './OptimizedLeadModal'
 import type { Database } from '@/types/supabase'
 
 type Lead = Database['public']['Tables']['leads']['Row']
@@ -70,9 +70,14 @@ export function LeadCard({ lead, isDragging = false, onUpdate, currentUserId }: 
     <div
       ref={setNodeRef}
       style={style}
-      className={`kanban-card ${isDragging || isDraggingFromHook ? 'dragging' : ''}`}
+      className={`kanban-card ${isDragging || isDraggingFromHook ? 'dragging' : ''} cursor-pointer`}
       {...listeners}
       {...attributes}
+      onClick={(e) => {
+        // Evitar abrir modal quando clicar no menu
+        if ((e.target as HTMLElement).closest('.relative')) return
+        setIsDetailModalOpen(true)
+      }}
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
@@ -129,7 +134,7 @@ export function LeadCard({ lead, isDragging = false, onUpdate, currentUserId }: 
         <div className="flex items-center space-x-1 text-xs text-gray-500">
           <Clock className="w-3 h-3" />
           <span>
-            {formatDistanceToNow(new Date(lead.created_at), {
+            {formatDistanceToNow(new Date(lead.created_at || Date.now()), {
               addSuffix: true,
               locale: ptBR,
             })}
@@ -215,11 +220,13 @@ export function LeadCard({ lead, isDragging = false, onUpdate, currentUserId }: 
       )}
 
       {/* Lead Detail Modal */}
-      <LeadDetailModal
+      <OptimizedLeadModal
         lead={lead}
         isOpen={isDetailModalOpen}
         onClose={() => setIsDetailModalOpen(false)}
         currentUserId={currentUserId}
+        onUpdate={onUpdate || ((leadId, updates) => {})}
+        onDelete={(leadId) => {}}
       />
     </div>
   )

@@ -1,0 +1,538 @@
+/* Notion-Inspired CRM Layout */
+/* Paleta: Preto (#000000), Grafite (#2F3437, #37404A), Branco (#FFFFFF) */
+
+:root {
+  --notion-bg-primary: #FFFFFF;
+  --notion-bg-secondary: #F7F6F3;
+  --notion-bg-sidebar: #2F3437;
+  --notion-bg-sidebar-hover: #37404A;
+  --notion-text-primary: #37352F;
+  --notion-text-secondary: #6B7280;
+  --notion-text-tertiary: #9CA3AF;
+  --notion-text-white: #FFFFFF;
+  --notion-border: #E5E7EB;
+  --notion-border-light: #F3F4F6;
+  --notion-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --notion-shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset e Base */
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--notion-bg-primary) !important;
+  color: var(--notion-text-primary) !important;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+/* Layout Principal - Estilo Notion */
+.notion-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--notion-bg-primary);
+}
+
+/* Sidebar - Compacta e Elegante */
+.notion-sidebar {
+  width: 220px;
+  background: var(--notion-bg-sidebar);
+  border-right: 1px solid var(--notion-border);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  overflow-y: auto;
+}
+
+.notion-sidebar-header {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+}
+
+.notion-sidebar-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--notion-text-white);
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.notion-sidebar-nav {
+  padding: 4px 0;
+  flex: 1;
+}
+
+.notion-sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.12s ease;
+  cursor: pointer;
+  gap: 6px;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  min-height: 28px;
+  border-radius: 4px;
+  margin: 1px 4px;
+  width: calc(100% - 8px);
+}
+
+.notion-sidebar-item:hover {
+  background: var(--notion-bg-sidebar-hover);
+  color: var(--notion-text-white);
+}
+
+.notion-sidebar-item.active {
+  background: var(--notion-bg-sidebar-hover);
+  color: var(--notion-text-white);
+  font-weight: 500;
+}
+
+.notion-sidebar-icon {
+  width: 14px;
+  height: 14px;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+/* Área Principal - Compacta */
+.notion-main {
+  flex: 1;
+  background: var(--notion-bg-primary);
+  min-height: 100vh;
+}
+
+.notion-header {
+  padding: 16px 32px 0;
+  max-width: none;
+}
+
+.notion-page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--notion-text-primary);
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.notion-page-subtitle {
+  font-size: 13px;
+  color: var(--notion-text-secondary);
+  margin: 0 0 20px 0;
+}
+
+/* Toolbar - Compacta */
+.notion-toolbar {
+  padding: 0 32px 16px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.notion-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+  min-height: 24px;
+}
+
+.notion-btn-primary {
+  background: var(--notion-text-primary);
+  color: var(--notion-text-white);
+}
+
+.notion-btn-primary:hover {
+  background: #000000;
+}
+
+.notion-btn-secondary {
+  background: var(--notion-bg-primary);
+  color: var(--notion-text-primary);
+  border: 1px solid var(--notion-border);
+}
+
+.notion-btn-secondary:hover {
+  background: var(--notion-bg-secondary);
+}
+
+/* Kanban Board - Compacto */
+.notion-kanban {
+  padding: 0 32px 24px;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  min-height: calc(100vh - 140px);
+}
+
+.notion-kanban-column {
+  flex: 1;
+  min-width: 240px;
+  max-width: 280px;
+}
+
+.notion-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: var(--notion-bg-secondary);
+}
+
+.notion-column-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--notion-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.notion-column-count {
+  font-size: 10px;
+  color: var(--notion-text-secondary);
+  background: var(--notion-bg-primary);
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-weight: 500;
+  min-width: 16px;
+  text-align: center;
+}
+
+/* Cards - Compactos */
+.notion-card {
+  background: var(--notion-bg-primary);
+  border: 1px solid var(--notion-border);
+  border-radius: 6px;
+  padding: 8px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  position: relative;
+}
+
+.notion-card:hover {
+  box-shadow: var(--notion-shadow);
+  border-color: #D1D5DB;
+}
+
+.notion-card-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--notion-text-primary);
+  margin: 0 0 6px 0;
+  line-height: 1.3;
+  padding-right: 24px;
+}
+
+.notion-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.notion-card-field {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--notion-text-secondary);
+  line-height: 1.2;
+}
+
+.notion-card-icon {
+  width: 10px;
+  height: 10px;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.notion-card-score {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: var(--notion-bg-secondary);
+  color: var(--notion-text-secondary);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 4px;
+  border-radius: 3px;
+  min-width: 16px;
+  text-align: center;
+}
+
+/* Estados vazios - Compactos */
+.notion-empty-state {
+  text-align: center;
+  padding: 20px 12px;
+  color: var(--notion-text-tertiary);
+}
+
+.notion-empty-icon {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 8px;
+  opacity: 0.3;
+}
+
+.notion-empty-text {
+  font-size: 11px;
+  margin: 0;
+}
+
+/* Botão de adicionar - Compacto */
+.notion-add-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  color: var(--notion-text-secondary);
+  background: none;
+  border: 1px dashed var(--notion-border);
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  width: 100%;
+  text-align: left;
+  min-height: 24px;
+}
+
+.notion-add-btn:hover {
+  color: var(--notion-text-primary);
+  border-color: var(--notion-text-secondary);
+  background: var(--notion-bg-secondary);
+}
+
+/* Drag & Drop */
+.notion-card.dragging {
+  opacity: 0.5;
+  transform: rotate(5deg);
+}
+
+.notion-kanban-column.drag-over {
+  background: rgba(59, 130, 246, 0.05);
+  border-radius: 8px;
+}
+
+/* Responsividade Otimizada */
+@media (max-width: 1200px) {
+  .notion-sidebar {
+    width: 200px;
+  }
+  
+  .notion-main {
+    /* margin-left removido para usar flexbox */
+  }
+  
+  .notion-header,
+  .notion-toolbar,
+  .notion-kanban {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
+  .notion-kanban-column {
+    min-width: 220px;
+    max-width: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .notion-sidebar {
+    width: 180px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .notion-sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .notion-main {
+    /* margin-left removido para usar flexbox */
+  }
+  
+  .notion-header,
+  .notion-toolbar,
+  .notion-kanban {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  .notion-kanban {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .notion-kanban-column {
+    min-width: auto;
+    max-width: none;
+  }
+  
+  .notion-page-title {
+    font-size: 20px;
+  }
+}
+
+/* Scrollbar personalizada */
+.notion-kanban::-webkit-scrollbar {
+  height: 8px;
+}
+
+.notion-kanban::-webkit-scrollbar-track {
+  background: var(--notion-bg-secondary);
+  border-radius: 4px;
+}
+
+.notion-kanban::-webkit-scrollbar-thumb {
+  background: var(--notion-border);
+  border-radius: 4px;
+}
+
+.notion-kanban::-webkit-scrollbar-thumb:hover {
+  background: var(--notion-text-tertiary);
+}
+
+/* --- Modal de Detalhes do Lead (NOVO) --- */
+.notion-modal-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.notion-title-input {
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+  padding: 2px 4px;
+  border-radius: 4px;
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid transparent;
+}
+.notion-title-input:focus {
+  border-color: var(--notion-border);
+  background-color: var(--notion-bg-secondary);
+}
+
+.notion-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.notion-btn-modal {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  border: none;
+}
+
+.notion-tab-btn {
+  padding: 8px 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--notion-text-secondary);
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+.notion-tab-btn:hover {
+  color: var(--notion-text-primary);
+  background-color: var(--notion-bg-secondary);
+}
+.notion-tab-btn.active {
+  color: var(--notion-text-primary);
+  border-bottom-color: var(--notion-text-primary);
+}
+
+
+/* Animações */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notion-card {
+  animation: slideIn 0.2s ease-out;
+}
+
+/* Tipografia adicional */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--notion-text-primary) !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+}
+
+p {
+  color: var(--notion-text-secondary) !important;
+  margin: 0 !important;
+}
+
+/* Sobrescrever estilos existentes */
+.bg-gray-50,
+.bg-gray-100 {
+  background: var(--notion-bg-primary) !important;
+}
+
+.text-gray-900 {
+  color: var(--notion-text-primary) !important;
+}
+
+.text-gray-600,
+.text-gray-700 {
+  color: var(--notion-text-secondary) !important;
+}
+
+.text-gray-500 {
+  color: var(--notion-text-tertiary) !important;
+}

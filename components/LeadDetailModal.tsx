@@ -24,6 +24,8 @@ interface LeadDetailModalProps {
   onLeadDelete?: (leadId: string) => void
 }
 
+// DEPRECATED: Este modal foi substituído por OptimizedLeadModal
+// Mantido apenas para compatibilidade temporária
 export function LeadDetailModal({ lead, isOpen, onClose, currentUserId, onLeadUpdate, onLeadDelete }: LeadDetailModalProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'interactions' | 'tasks' | 'calendar' | 'ai'>('overview')
   const [interactions, setInteractions] = useState<Interaction[]>([])
@@ -243,8 +245,8 @@ export function LeadDetailModal({ lead, isOpen, onClose, currentUserId, onLeadUp
                 <h2 className="notion-title text-xl font-semibold text-gray-900">{lead.name}</h2>
               )}
               <div className="flex items-center gap-2 mt-1">
-                <span className={`px-2 py-1 rounded-md text-xs font-medium border ${getStatusColor(lead.status)}`}>
-                  {formatStatus(lead.status)}
+                <span className={`px-2 py-1 rounded-md text-xs font-medium border ${getStatusColor(lead.status || 'lead_qualificado')}`}>
+                  {formatStatus(lead.status || 'lead_qualificado')}
                 </span>
                 {lead.score !== null && lead.score > 0 && (
                   <span className={`px-2 py-1 rounded-md text-xs font-medium border ${getScoreColor(lead.score)}`}>
@@ -384,9 +386,9 @@ export function LeadDetailModal({ lead, isOpen, onClose, currentUserId, onLeadUp
                     <div className="flex items-center gap-3">
                       <Clock className="w-4 h-4 text-gray-400" />
                       <span className="notion-body text-gray-700">
-                        Criado {formatDistanceToNow(new Date(lead.created_at), { 
-                          addSuffix: true, 
-                          locale: ptBR 
+                        Criado {formatDistanceToNow(new Date(lead.created_at || Date.now()), {
+                          addSuffix: true,
+                          locale: ptBR
                         })}
                       </span>
                     </div>
@@ -458,7 +460,7 @@ export function LeadDetailModal({ lead, isOpen, onClose, currentUserId, onLeadUp
                     <div key={interaction.id} className="card-minimal">
                       <div className="flex items-start justify-between mb-2">
                         <span className="notion-caption text-gray-500">
-                          {formatDistanceToNow(new Date(interaction.created_at), { 
+                          {formatDistanceToNow(new Date(interaction.created_at || Date.now()), { 
                             addSuffix: true, 
                             locale: ptBR 
                           })}
@@ -500,7 +502,7 @@ export function LeadDetailModal({ lead, isOpen, onClose, currentUserId, onLeadUp
                             <p className="notion-body text-gray-600 mt-1">{task.description}</p>
                           )}
                           <p className="notion-caption text-gray-500 mt-2">
-                            {formatDistanceToNow(new Date(task.created_at), { 
+                            {formatDistanceToNow(new Date(task.created_at || Date.now()), { 
                               addSuffix: true, 
                               locale: ptBR 
                             })}

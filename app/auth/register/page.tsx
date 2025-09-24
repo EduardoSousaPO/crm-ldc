@@ -58,6 +58,27 @@ export default function RegisterPage() {
       }
 
       if (data.user) {
+        // Criar perfil do usuário na tabela users
+        try {
+          const { error: profileError } = await (supabase as any)
+            .from('users')
+            .insert({
+              id: data.user.id,
+              email: data.user.email,
+              name: formData.name,
+              role: 'consultor', // Papel padrão
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            })
+
+          if (profileError) {
+            console.error('Erro ao criar perfil:', profileError)
+            // Não falha o registro se der erro no perfil
+          }
+        } catch (profileError) {
+          console.error('Erro ao criar perfil do usuário:', profileError)
+        }
+
         toast.success('Conta criada com sucesso! Verifique seu e-mail.')
         router.push('/auth/login')
       }

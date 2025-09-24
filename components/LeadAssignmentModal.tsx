@@ -277,8 +277,8 @@ export function LeadAssignmentModal({
                         <div className="flex-1">
                           <div className="flex items-center space-x-3">
                             <h4 className="font-medium text-gray-900">{lead.name}</h4>
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(lead.status)}`}>
-                              {getStatusLabel(lead.status)}
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getStatusColor(lead.status || 'lead_qualificado')}`}>
+                              {getStatusLabel(lead.status || 'lead_qualificado')}
                             </span>
                             <span className="text-xs text-gray-500">
                               Score: {lead.score || 0}

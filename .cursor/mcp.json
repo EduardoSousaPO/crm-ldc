@@ -1,0 +1,15 @@
+{
+    "mcpServers": {
+      "n8n-mcp": {
+        "command": "npx",
+        "args": ["n8n-mcp"],
+        "env": {
+          "MCP_MODE": "stdio",
+          "LOG_LEVEL": "error",
+          "DISABLE_CONSOLE_OUTPUT": "true",
+          "N8N_API_URL": "https://agenteia-n8n.dqlhjk.easypanel.host/",
+          "N8N_API_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1OWUwMTlkZS01MjlkLTRlY2MtODczNS1iZTljMTNjMTQxODciLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzU4NTYzMjY4fQ.0dzrB0sQ_kJv6Ay19DtgWO_Wa80-JGIaycuhDJZwpys"
+        }
+      }
+    }
+  }
